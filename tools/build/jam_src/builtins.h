@@ -30,6 +30,5 @@ LIST *builtin_caller_module( PARSE *parse, FRAME *args );
 LIST *builtin_backtrace( PARSE *parse, FRAME *args );
 LIST *builtin_pwd( PARSE *parse, FRAME *args );
 LIST *builtin_update( PARSE *parse, FRAME *args );
-LIST *builtin_search_for_target( PARSE *parse, FRAME *args );
 
 #endif
