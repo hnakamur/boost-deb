@@ -47,10 +47,11 @@
 #include <cwchar> // for WCHAR_MIN and WCHAR_MAX
 #endif
 
-#if defined(__sparc) || defined(__sparc__) || defined(__powerpc__) || defined(__ppc__) || defined(__hppa) || defined(_MIPSEB)
-#define BOOST_BIG_ENDIAN
-#elif defined(__i386__)
-#define BOOST_LITTLE_ENDIAN
+#include <endian.h>
+#if __BYTE_ORDER == __BIG_ENDIAN
+#  define BOOST_BIG_ENDIAN
+#elif __BYTE_ORDER == __LITTLE_ENDIAN
+#  define BOOST_LITTLE_ENDIAN
 #else
 #error The file boost/detail/limits.hpp needs to be set up for your CPU type.
 #endif

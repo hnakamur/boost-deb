@@ -1,0 +1,34 @@
+		STLPort and GCC 3
+		-----------------
+
+The Boost libraries depend on a conforming stdc++ library.  I tried
+building boost using GCC 2.95.x (the default on most Debian
+architectures as of this writing), and it fails some of the regression
+tests.  However, using the same compiler plus STLPort suffices to pass
+the regression tests.  Thus Boost is built using STLPort and the
+packages depend on the STLPort packages.
+
+See http://www.boost.org/status/cs-linux.html.
+
+It is also true that GCC 3.0.1 passes the regression testing, so when
+that is default everywhere I'll no longer build with stlport.
+
+If you prefer to use Boost with GCC 3, you need to get the sources and
+rebuild it yourself.  I'm afraid that requires hacking the following
+files: debian/control, debian/rules, and tools/build/debian-tools.jam.
+
+
+
+		Upgrade from 1.21.1 Packages
+		----------------------------
+
+The upstream build system has radically changed (from "make" to "jam")
+between the first Debian packages of 1.21.1, and the current packages.
+
+The shared library for conceptcheck is no longer built upstream.
+
+The debug version of the regex library, libboost-regex-dbg, is no
+longer built.
+
+The dir_it library is labelled "beta", is not a part of boost, and
+so is no longer built.
