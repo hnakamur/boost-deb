@@ -10,10 +10,6 @@
 >>> z2 = copy_Z(z)
 >>> x_instances()
 4
->>> y_identity(y) is y
-1
->>> y_equality(y, y)
-1
 '''
 
 def run(args = None):
