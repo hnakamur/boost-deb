@@ -1,0 +1,71 @@
+	Built Libraries
+	---------------
+
+graph	static 	shared
+python		shared
+regex	static	shared
+thread	static
+signals	static	shared
+
+
+
+
+
+	Changes to Upstream Sources
+	---------------------------
+
+* boost/detail/limits.hpp
+  - use <endian.h>
+
+* libs/graph/src/Makefile
+  - build using -I/usr/include/stlport, optimization and no debugging
+  - disable rules that invoke yacc
+  - do not clean the yacc-built files
+
+* libs/graph/src/graphviz_digraph_parser.cpp
+* libs/graph/src/graphviz_graph_parser.cpp
+  - add std:: prefix
+
+* tools/build/gcc-stlport-tools.jam
+  - use "-lstlport" for static linking
+
+
+
+	STLPort and GCC 3
+	-----------------
+
+The Boost libraries depend on a conforming stdc++ library.  I tried
+building boost using GCC 2.95.x (the default on most Debian
+architectures as of this writing), and it fails some of the regression
+tests.  However, using the same compiler plus STLPort suffices to pass
+the regression tests.  Thus Boost is built using STLPort and the
+packages depend on the STLPort packages.
+
+See http://www.boost.org/status/cs-linux.html.
+
+It is also true that GCC 3 passes the regression testing, so when
+that is default everywhere I'll no longer build with stlport.
+
+If you prefer to use Boost with GCC 3, you need to get the sources and
+rebuild it yourself.  I'm afraid that requires hacking the following
+files: debian/control, debian/rules, and tools/build/debian-tools.jam.
+
+
+	Documentation
+	-------------
+
+I couldn't figure out the correct wget options to copy the local tree
+while not downloading stuff from other sites.  Xavier Roche <roche@httrack.com>
+told me about httrack <www.httrack.com> which does precisely that using
+
+  httrack file:///usr/local/src/devel/boost/boost-cvs-local/index.htm -%F ''
+
+I'd like to use httrack to do the copy, since it cleans up a bunch of
+sloppy links, e.g. adding slash to href="foo.bla.com/".  Alas it ain't
+part of debian.  So I used the copied files to generate the list
+debian/libboost-doc.docs.
+
+
+* use -Nlibboost-doc with dh_compress to inhibit compressing files in the HTML
+  tree
+
