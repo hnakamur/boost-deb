@@ -18,11 +18,11 @@ LEX		= flex
 YACC		= bison
 MV		= /bin/mv
 
-EXTRAFLAGS 	= -g 
+EXTRAFLAGS 	=
 
-INCLUDES	= -I$(BOOST)
+INCLUDES	= -I$(BOOST) -I/usr/include/stlport
 
-CXXFLAGS	= $(INCLUDES) $(EXTRAFLAGS)
+CXXFLAGS	= $(INCLUDES) $(EXTRAFLAGS) -O
 
 LDFLAAGS	= 
 
