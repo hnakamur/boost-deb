@@ -1,0 +1,104 @@
+		Help Save the World
+		-------------------
+
+Boost is a fairly extensive set of libraries, of which I personally
+use but a very small part.  I greatly appreciate folks that send
+patches to the BTS.  Please do have a look at the outstanding bug
+reports and send me hints or patches if you have extra information.
+If you're a Debian developer and wish to help out as a co-maintainer,
+do let me know!
+
+
+		Getting Started
+		---------------
+
+Many Boost components are headers only.  Others have a static library,
+a shared library, or both.  
+
+The following table shows which components use a library (shared or
+static) and the corresponding "-l" flag.
+
+  Component	Link Flag			Library Type
+  ---------	---------			------------
+  date_time     -lboost_date_time      		static	shared
+  filesystem	-lboost_filesystem		static
+  Boost.Graph	-lbgl-viz			static	shared
+  Boost.Python	-lboost_python				shared
+  Boost.Regex	-lboost_regex			static	shared
+  Boost.Signals	-lboost_signals			static	shared
+  Boost.Test	-lboost_prg_exec_monitor	static	shared
+		-lboost_test_exec_monitor	static	shared
+		-lboost_unit_test_framework	static	shared
+  Boost.Thread	-lboost_thread				shared
+
+Most of Boost is installed using the package libboost-dev.  
+The components with a shared library have separate -dev packages.
+
+
+There is extensive documentation available in the libboost-doc
+package and at www.boost.org.
+
+
+	Threaded Applications
+	---------------------
+
+You need to specify -D_REENTRANT at compile time to build
+threaded applications.  
+
+This behaviour changed in boost 1.30.2; prior versions mistakenly
+did not require that symbol _REENTRANT be defined.
+
+
+		Example Code
+		------------
+
+All example code is shipped in libboost-doc package.
+
+Some of the example code is linked to by the documentation, and thus
+appears in a directory named
+
+  /usr/share/doc/libboost-doc/HTML/libs/*/example
+
+Example code that is not linked from the documentation appears in a
+directory under
+
+  /usr/share/doc/libboost-doc/examples/libs/
+
+
+
+		Python 2.3
+		----------
+
+Boost.Python is not compatible with Python 2.3. 
+The boost website has this bit of advice (circa August 2003):
+
+    Boost 1.31.0, which will be compatible with Python 2.3, is due out
+    shortly. In the meantime, if you need Python 2.3 compatibility, we
+    suggest you get a CVS snapshot.
+
+    [http://www.boost.org/libs/python/doc/index.html]
+
+
+
+		STLport
+		-------
+
+Debian's boost packages prior to release 1.29.0-3 were built using
+libstlport.  This is no longer the case.
+
+If you have old boost-using code, you will need to change your build
+process, removing any -I/usr/include/stlport or -llstport options.
+
+	Why the change?
+	---------------
+
+Until January 2003, Debian's default compiler was GCC 2.95.x.  The
+standard C++ library that came with GCC 2.x was sufficiently buggy to
+cause problems with boost.  STLport was a better implementation of STL
+and enabled boost to function.
+
+Debian now uses GCC 3.2 (or newer).  The standard C++ library has
+improved enough to use with boost, so I dropped STLport.
+
+
+ -- Steve M. Robbins <smr@debian.org>, Sat Jan 31 17:44:07 2004
