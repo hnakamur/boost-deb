@@ -115,7 +115,7 @@ namespace detail
                   typename add_reference<typename add_const<T>::type>::type
               >::uses_registry
           >
-        , is_reference_to_class<
+        , indirect_traits::is_reference_to_class<
               typename add_reference<typename add_const<T>::type>::type
           >
        >
