@@ -1,0 +1,57 @@
+	Built Libraries
+	---------------
+
+date_time	static	shared
+filesystem	static	-
+graph		static 	shared
+python		-	shared
+regex		static	shared
+signals		static	shared
+test    	static	shared
+thread		-	shared
+
+The static-only libs are incorporated into boost-dev
+package.
+
+
+	Changes to Upstream Sources
+	---------------------------
+
+* boost/detail/limits.hpp
+  - use <endian.h>
+
+* libs/graph/src/Makefile
+  - build using optimization and no debugging
+  - set -DYYSTYPE_IS_DECLARED=1
+
+
+	STLPort and GCC 3
+	-----------------
+
+Boost built using GCC 3 passes the regression testing.  This is
+the default GCC now, so stlport is no longer used.
+
+
+	Documentation
+	-------------
+
+TODO: httrack is now in debian, so this can be revised...
+
+I couldn't figure out the correct wget options to copy the local tree
+while not downloading stuff from other sites.  Xavier Roche <roche@httrack.com>
+told me about httrack <www.httrack.com> which does precisely that using
+
+  httrack file:///usr/local/src/devel/boost/boost-cvs-local/index.htm -%F ''
+
+I'd like to use httrack to do the copy, since it cleans up a bunch of
+sloppy links, e.g. adding slash to href="foo.bla.com/".  Alas it ain't
+part of debian.  So I used the copied files to generate the list
+debian/libboost-doc.docs.
+
+New use?
+httrack --mirror -C0 -O dbuild/docs --footer '' file://`pwd`/index.htm
+
+
+* use -Nlibboost-doc with dh_compress to inhibit compressing files in the HTML
+  tree
+
