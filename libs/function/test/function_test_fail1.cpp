@@ -23,8 +23,8 @@ using namespace boost;
 int
 test_main(int, char*[])
 {
-  function0<int> f1;
-  function0<int> f2;
+  function<int> f1;
+  function<int> f2;
 
   if (f1 == f2) {
   }

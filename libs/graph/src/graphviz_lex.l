@@ -24,20 +24,7 @@
 // OR OTHER RIGHTS.
 //=======================================================================
 
-
-
-#ifdef GRAPHVIZ_DIRECTED
-    #if GRAPHVIZ_DIRECTED == 0
-        #define yyerror bgl_undir_error
-        #include "graphviz_graph_parser.h"
-    #else GRAPHIVZ == 1
-        #define yyerror bgl_dir_error
-        #include "graphviz_digraph_parser.h"
-    #endif
-#else
-    #include "graphviz_parser.h"
-#endif
-
+#include "graphviz_parser.h"
 
 #include <string>
 #include <iostream>
