@@ -27,7 +27,7 @@ struct as_to_python_function
     {
         BOOST_STATIC_ASSERT(
             sizeof(
-                convert_function_must_take_value_or_const_reference(&ToPython::convert, 1L))
+                as_to_python_function::convert_function_must_take_value_or_const_reference(&ToPython::convert, 1L))
             == sizeof(int));
         
         // Yes, the const_cast below opens a hole in const-correctness,

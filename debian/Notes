@@ -1,0 +1,55 @@
+	Built Libraries
+	---------------
+
+date_time	static	shared
+filesystem	static	-
+graph		static 	shared
+python		-	shared
+regex		static	shared
+signals		static	shared
+test    	static	shared
+thread		-	shared
+
+The static-only libs are incorporated into boost-dev
+package.
+
+
+	Changes to Upstream Sources
+	---------------------------
+
+* boost/detail/limits.hpp
+  - use <endian.h>
+
+* libs/graph/src/Makefile
+  - build using optimization and no debugging
+  - set -DYYSTYPE_IS_DECLARED=1
+
+
+	STLPort and GCC 3
+	-----------------
+
+Boost built using GCC 3 passes the regression testing.  This is
+the default GCC now, so stlport is no longer used.
+
+
+	Documentation
+	-------------
+
+Generate the list of documentation files using wget going through
+localhost to get the source tree
+
+    wget -r --no-parent --domains=localhost \
+	http://localhost/lsrc/devel/boost/boost-cvs-local/index.htm
+    cd localhost/....
+    rm -rf boost
+    for f in `find * -type f`; do 
+	test -f /usr/local/src/devel/boost/boost-cvs-local/$f && echo $f; 
+    done > documentation-files
+
+* need to symlink .../HTML/boost to /usr/include/boost; when put the symlink
+  into the deb, it got converted to a directory during installation; use
+  postinst script to do it
+
+* use -Nlibboost-doc with dh_compress to inhibit compressing files in the HTML
+  tree
+
