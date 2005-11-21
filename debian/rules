@@ -25,6 +25,7 @@ debug_suffix = -gcc-mt-d-$(boost_version)
 # Boost does not guarantee any ABI, it uses the full version in SONAME
 #
 SOVERSION = 1.33.0
+DEBIAN_SUFFIX = c2a
 
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
@@ -37,11 +38,6 @@ GXX=g++
 endif
 endif
 
-HAVE_ICU=
-ifneq ($(DEB_BUILD_ARCH), m68k)
-HAVE_ICU=-sHAVE_ICU=1
-endif
-
 exampledir = debian/libboost-doc/usr/share/doc/libboost-doc/examples
 htmldir = debian/libboost-doc/usr/share/doc/libboost-doc/HTML
 
@@ -51,7 +47,7 @@ JAM = $(bjam) -d2 \
 	-sTOOLS=gcc \
 	-sGCC=$(GCC) \
 	-sGXX=$(GXX) \
-	$(HAVE_ICU) \
+	-sHAVE_ICU=1 \
 	-sPYTHON_VERSION=2.3 \
 	-sPYTHON_ROOT=/usr
 
@@ -163,11 +159,11 @@ install: build
 
 
 	# package libboost-date-time$(SOVERSION)
-	dh_install -plibboost-date-time$(SOVERSION) --autodest \
+	dh_install -plibboost-date-time$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_date_time$(release_suffix).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_date_time$(debug_suffix).so.$(SOVERSION)
-	dh_install -plibboost-date-time$(SOVERSION) --autodest \
+	dh_install -plibboost-date-time$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_date_time$(release_suffix_st).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_date_time$(debug_suffix_st).so.$(SOVERSION)
@@ -192,11 +188,11 @@ install: build
 
 
 	# package libboost-filesystem$(SOVERSION)
-	dh_install -plibboost-filesystem$(SOVERSION) --autodest \
+	dh_install -plibboost-filesystem$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_filesystem$(release_suffix).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_filesystem$(debug_suffix).so.$(SOVERSION)
-	dh_install -plibboost-filesystem$(SOVERSION) --autodest \
+	dh_install -plibboost-filesystem$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_filesystem$(release_suffix_st).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_filesystem$(debug_suffix_st).so.$(SOVERSION)
@@ -221,7 +217,7 @@ install: build
 
 
 	# package libboost-graph$(SOVERSION)
-	dh_install -plibboost-graph$(SOVERSION) \
+	dh_install -plibboost-graph$(SOVERSION)$(DEBIAN_SUFFIX) \
 	   libs/graph/src/libbgl-viz.so.$(SOVERSION) \
 	   usr/lib
 	dh_install -plibboost-dbg \
@@ -239,7 +235,7 @@ install: build
 
 
 	# package libboost-iostreams$(SOVERSION)
-	dh_install -plibboost-iostreams$(SOVERSION) --autodest \
+	dh_install -plibboost-iostreams$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_iostreams$(release_suffix).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_iostreams$(debug_suffix).so.$(SOVERSION)
@@ -259,11 +255,11 @@ install: build
 
 
 	# package libboost-program-options$(SOVERSION)
-	dh_install -plibboost-program-options$(SOVERSION) --autodest \
+	dh_install -plibboost-program-options$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_program_options$(release_suffix).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_program_options$(debug_suffix).so.$(SOVERSION)
-	dh_install -plibboost-program-options$(SOVERSION) --autodest \
+	dh_install -plibboost-program-options$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_program_options$(release_suffix_st).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_program_options$(debug_suffix_st).so.$(SOVERSION)
@@ -288,9 +284,9 @@ install: build
 
 
 	# package libboost-python$(SOVERSION)
-	dh_install -plibboost-python$(SOVERSION) --autodest \
+	dh_install -plibboost-python$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_python$(release_suffix_st).so.$(SOVERSION)
-	dh_install -plibboost-python$(SOVERSION) --autodest \
+	dh_install -plibboost-python$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_python$(release_suffix).so.$(SOVERSION)
 	mkdir -p debian/libboost-python$(SOVERSION)/usr/share/lintian/overrides
 	install -m644 \
@@ -322,11 +318,11 @@ install: build
 
 
 	# package libboost-regex$(SOVERSION)
-	dh_install -plibboost-regex$(SOVERSION) --autodest \
+	dh_install -plibboost-regex$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_regex$(release_suffix).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_regex$(debug_suffix).so.$(SOVERSION)
-	dh_install -plibboost-regex$(SOVERSION) --autodest \
+	dh_install -plibboost-regex$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_regex$(release_suffix_st).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_regex$(debug_suffix_st).so.$(SOVERSION)
@@ -366,11 +362,11 @@ install: build
 
 
 	# package libboost-signals$(SOVERSION)
-	dh_install -plibboost-signals$(SOVERSION) --autodest \
+	dh_install -plibboost-signals$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_signals$(release_suffix).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_signals$(debug_suffix).so.$(SOVERSION)
-	dh_install -plibboost-signals$(SOVERSION) --autodest \
+	dh_install -plibboost-signals$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_signals$(release_suffix_st).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_signals$(debug_suffix_st).so.$(SOVERSION)
@@ -395,7 +391,7 @@ install: build
 
 
 	# package libboost-test$(SOVERSION)
-	dh_install -plibboost-test$(SOVERSION) --autodest \
+	dh_install -plibboost-test$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_prg_exec_monitor$(release_suffix_st).so.$(SOVERSION) \
 	   debian/tmp/usr/lib/libboost_test_exec_monitor$(release_suffix_st).so.$(SOVERSION) \
 	   debian/tmp/usr/lib/libboost_unit_test_framework$(release_suffix_st).so.$(SOVERSION) \
@@ -450,7 +446,7 @@ install: build
 
 
 	# package libboost-thread$(SOVERSION)
-	dh_install -plibboost-thread$(SOVERSION) --autodest \
+	dh_install -plibboost-thread$(SOVERSION)$(DEBIAN_SUFFIX) --autodest \
 	   debian/tmp/usr/lib/libboost_thread$(release_suffix).so.$(SOVERSION)
 	dh_install -plibboost-dbg --autodest \
 	   debian/tmp/usr/lib/libboost_thread$(debug_suffix).so.$(SOVERSION)
@@ -497,7 +493,7 @@ binary-common:
 
 	@if [ "$(DH_OPTIONS)" = "-a" ]; then \
 		for name in date-time filesystem graph iostreams program-options python regex signals test thread; do \
-			lib=libboost-$${name}$(SOVERSION); \
+			lib=libboost-$${name}$(SOVERSION)$(DEBIAN_SUFFIX); \
 			shlib="$${lib} (>= 1.33.0-1)"; \
 			echo DH_OPTIONS=-p$${lib} dh_makeshlibs -V"$${shlib}"; \
 			DH_OPTIONS=-p$${lib} dh_makeshlibs -V"$${shlib}"; \
