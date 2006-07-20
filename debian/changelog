@@ -1,3 +1,10 @@
+boost (1.33.1-5) unstable; urgency=low
+
+  * CSS file for HTML documentation is now correctly installed.
+    Closes: #358986.
+
+ -- Domenico Andreoli <cavok@debian.org>  Tue, 27 Jun 2006 17:14:05 +0200
+
 boost (1.33.1-4) unstable; urgency=low
 
   * Graph library is built with -mlong-calls on hppa too.
