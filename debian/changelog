@@ -2,10 +2,12 @@ boost (1.33.1-5) unstable; urgency=low
 
   * CSS file for HTML documentation is now correctly installed.
     Closes: #358986.
-  
-  * Added missing header in boost/bind.hpp.  Closes: #376747.
 
- -- Domenico Andreoli <cavok@debian.org>  Thu, 20 Jul 2006 12:25:45 +0200
+  * Added missing header in boost/bind.hpp.  Closes: #376747.
+  
+  * Fixed some unused parameter warnings.  Closes: #372800.
+
+ -- Domenico Andreoli <cavok@debian.org>  Thu, 20 Jul 2006 12:33:49 +0200
 
 boost (1.33.1-4) unstable; urgency=low
 
