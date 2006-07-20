@@ -342,7 +342,7 @@ public:
    //
    // getflags:
    // retained for backwards compatibility only, "flags"
-   // is now the prefered name:
+   // is now the preferred name:
    flag_type BOOST_REGEX_CALL getflags()const
    { 
       return flags();

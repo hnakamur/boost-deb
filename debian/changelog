@@ -4,10 +4,13 @@ boost (1.33.1-5) unstable; urgency=low
     Closes: #358986.
 
   * Added missing header in boost/bind.hpp.  Closes: #376747.
-  
+
   * Fixed some unused parameter warnings.  Closes: #372800.
 
- -- Domenico Andreoli <cavok@debian.org>  Thu, 20 Jul 2006 12:33:49 +0200
+  * Fixed some typos in source code.  Closes: #378016.
+    Patch courtesy of Roger Leigh.
+
+ -- Domenico Andreoli <cavok@debian.org>  Thu, 20 Jul 2006 12:44:28 +0200
 
 boost (1.33.1-4) unstable; urgency=low
 
