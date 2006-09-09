@@ -26,6 +26,7 @@ Description: tool for extracting subsets of Boost C++ Libraries
 Package: libboost-dbg
 Architecture: any
 Section: libdevel
+Priority: extra
 Depends: ${shlibs:Depends}
 Suggests: libboost-dev
 Description: Boost C++ Libraries with debug symbols
@@ -416,3 +417,18 @@ Description: C99/C++ preprocessor library
  the well known idioms of the Standard Template Library (STL).
  .
   Homepage: http://www.boost.org/libs/wave/
+
+Package: pyste
+Architecture: all
+Section: python
+Provides: ${python:Provides}
+Depends: ${python:Depends}, python-celementtree | python-elementtree, gccxml
+XB-Python-Version: ${python:Versions}
+Description: Boost.Python code generator
+ Part of the Boost C++ Libraries collection.
+ .
+ User specifies classes and functions to be exported using a simple
+ interface file, which following the Boost.Python's philosophy, is
+ simple Python code.
+ .
+  Homepage: http://www.boost.org/libs/python/pyste/

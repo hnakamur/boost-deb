@@ -1,3 +1,11 @@
+boost (1.33.1-6) unstable; urgency=low
+
+  * Packaged Pyste.  Closes: #189839.
+
+  * Package libboost-dbg has now priority extra.
+
+ -- Domenico Andreoli <cavok@debian.org>  Fri,  8 Sep 2006 21:56:31 +0200
+
 boost (1.33.1-5) unstable; urgency=low
 
   * CSS file for HTML documentation is now correctly installed.

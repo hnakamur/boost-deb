@@ -48,7 +48,7 @@ endif
 
 exampledir = debian/libboost-doc/usr/share/doc/libboost-doc/examples
 htmldir = debian/libboost-doc/usr/share/doc/libboost-doc/HTML
-
+pyste_prefix = $(PWD)/debian/pyste/usr
 bjam = tools/build/jam_src/bjam
 
 JAM = $(bjam) -d2 \
@@ -81,6 +81,8 @@ build-stamp: $(bjam)
 	rm -f libs/graph/src/*.o
 	$(MAKE) -C libs/graph/src EXTRAFLAGS="$(CFLAGS) -fPIC" GRAPH_SONAME_VERSION=$(SOVERSION) libbgl-viz.so
 
+	cd libs/python/pyste/install && python setup.py build
+
 	touch build-stamp
 
 clean:
@@ -106,9 +108,12 @@ clean:
 	rm -f libs/config/config.{log,status}
 	# rm -f libs/graph/src/graphviz_parser.tab.{c,h}
 
+	cd libs/python/pyste/install && python setup.py clean
+	rm -rf libs/python/pyste/install/build
+
 	dh_clean
 
-install: DH_OPTIONS=
+install: DH_OPTIONS=-X.svn
 install: build
 	dh_testdir
 	dh_testroot
@@ -118,6 +123,8 @@ install: build
 	find debian/tmp/usr/include -type f | xargs chmod 644
 	find debian/tmp -name .cvsignore | xargs rm -f
 	find debian -empty -type f | xargs rm -f
+	cd libs/python/pyste/install && python setup.py install --no-compile --prefix=$(pyste_prefix) --install-lib=$(pyste_prefix)/share/python-support/pyste
+	mv $(pyste_prefix)/bin/pyste.py $(pyste_prefix)/bin/pyste
 
 	# package bcp
 	dh_installdirs -pbcp usr/bin
@@ -511,6 +518,8 @@ binary-common:
 	dh_strip -Nlibboost-dbg
 	dh_link
 	dh_compress -Xlibboost-doc/HTML
+	dh_pysupport
+	dh_python
 	dh_fixperms
 
 	@if [ "$(DH_OPTIONS)" = "-a" ]; then \
