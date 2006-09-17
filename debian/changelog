@@ -1,3 +1,12 @@
+boost (1.33.1-7) unstable; urgency=low
+
+  * Re-added build dependency on python2.4-dev.
+
+  * Build dependency on libicu36-dev is now allowed and preferred
+    over libicu34-dev.
+
+ -- Domenico Andreoli <cavok@debian.org>  Sun, 17 Sep 2006 23:35:27 +0200
+
 boost (1.33.1-6) unstable; urgency=low
 
   * Packaged Pyste.  Closes: #189839.

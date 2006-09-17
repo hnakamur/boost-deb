@@ -3,7 +3,7 @@ Section: libs
 Priority: optional
 Maintainer: Debian Boost Team <pkg-boost-devel@lists.alioth.debian.org>
 Uploaders: Steve M. Robbins <smr@debian.org>, Domenico Andreoli <cavok@debian.org>, Christophe Prud'homme <prudhomm@debian.org>
-Build-Depends: debhelper (>= 4), bison, flex, docbook-to-man, xsltproc, doxygen, zlib1g-dev, libbz2-dev, libicu34-dev, python | python-dev | python-all-dev, python-support (>= 0.3)
+Build-Depends: debhelper (>= 4), bison, flex, docbook-to-man, xsltproc, doxygen, zlib1g-dev, libbz2-dev, libicu36-dev | libicu34-dev, python | python-dev | python-all-dev, python2.4-dev, python-support (>= 0.3)
 Standards-Version: 3.7.2
 
 Package: bcp
