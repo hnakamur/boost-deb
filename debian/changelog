@@ -1,3 +1,18 @@
+boost (1.33.1-8) unstable; urgency=low
+
+  * Synchronized with Ubuntu.
+
+ -- Domenico Andreoli <cavok@debian.org>  Fri,  3 Nov 2006 23:54:34 +0100
+
+boost (1.33.1-7ubuntu1) edgy; urgency=low
+
+  * debian/patches/05-fix_signals.patch:
+    - patch from upsteam CVS, fixes Boost.Signals to work properly
+      across shared library boundaries with certain compiler options.
+      (Closes Ubuntu: #62202)
+
+ -- Matti Lindell <mlind@cs.joensuu.fi>  Mon, 25 Sep 2006 08:54:32 +0300
+
 boost (1.33.1-7) unstable; urgency=low
 
   * Re-added build dependency on python2.4-dev.
