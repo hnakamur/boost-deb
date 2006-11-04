@@ -1,6 +1,7 @@
 boost (1.33.1-8) unstable; urgency=low
 
   * Synchronized with Ubuntu.
+  * libboost-regex-dev now depends on libicu36-dev.
 
  -- Domenico Andreoli <cavok@debian.org>  Fri,  3 Nov 2006 23:54:34 +0100
 
