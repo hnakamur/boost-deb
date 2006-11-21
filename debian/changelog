@@ -1,3 +1,9 @@
+boost (1.33.1-9) unstable; urgency=low
+
+  * boost/property_map_iterator.hpp: added missing namespace.  Closes: #397654.
+
+ -- Domenico Andreoli <cavok@debian.org>  Tue, 21 Nov 2006 12:21:42 +0100
+
 boost (1.33.1-8) unstable; urgency=low
 
   * Synchronized with Ubuntu.
