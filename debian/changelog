@@ -1,3 +1,12 @@
+boost (1.33.1-10) unstable; urgency=medium
+
+  * boost/detail/sp_counted_base_gcc_ia64.hpp,
+    boost/detail/sp_counted_base_gcc_ppc.hpp: added missing constraints
+    on inline assembly.  Closes: #405599.
+    Patch courtesy of Aaron M. Ucko <ucko@debian.org>, from upstream CVS.
+
+ -- Domenico Andreoli <cavok@debian.org>  Fri,  5 Jan 2007 10:23:10 +0100
+
 boost (1.33.1-9) unstable; urgency=low
 
   * boost/property_map_iterator.hpp: added missing namespace.  Closes: #397654.
