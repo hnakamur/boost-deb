@@ -1,0 +1,23 @@
+--- boost-1.34.1.orig/boost/detail/endian.hpp
++++ boost-1.34.1/boost/detail/endian.hpp
+@@ -51,8 +51,8 @@
+ #elif defined(__sparc) || defined(__sparc__) \
+    || defined(_POWER) || defined(__powerpc__) \
+    || defined(__ppc__) || defined(__hpux) \
+-   || defined(_MIPSEB) || defined(_POWER) \
+-   || defined(__s390__)
++   || defined(__hppa) || defined(_MIPSEB) \
++   || defined(__ARMEB__) || defined(__s390__)
+ # define BOOST_BIG_ENDIAN
+ # define BOOST_BYTE_ORDER 4321
+ #elif defined(__i386__) || defined(__alpha__) \
+@@ -61,7 +61,8 @@
+    || defined(_M_ALPHA) || defined(__amd64) \
+    || defined(__amd64__) || defined(_M_AMD64) \
+    || defined(__x86_64) || defined(__x86_64__) \
+-   || defined(_M_X64)
++   || defined(_M_X64) || defined(_MIPSEL) \
++   || defined(__ARMEL__)
+ 
+ # define BOOST_LITTLE_ENDIAN
+ # define BOOST_BYTE_ORDER 1234
