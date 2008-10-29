@@ -132,7 +132,7 @@ bjam = $(CURDIR)/tools/jam/src/bjam
 JAM = $(bjam) $(JOBS) -d2 --user-config=$(CURDIR)/user-config.jam -sHAVE_ICU=1
 
 $(bjam):
-	cd tools/jam/src && sh build.sh cc && mv bin.*/bjam .
+	CFLAGS=-fno-strict-aliasing cd tools/jam/src && sh build.sh cc && mv bin.*/bjam .
 
 build: build-stamp
 build-stamp: $(QUILT_STAMPFN) $(bjam)
