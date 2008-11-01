@@ -1,6 +1,13 @@
+boost (1.34.1-14) unstable; urgency=low
+
+  * debian/rules: Build bootstrap jam with -fno-strict-aliasing.  This time
+    for real (put the variable assignment on the right shell line).
+
+ -- Steve M. Robbins <smr@debian.org>  Sat, 01 Nov 2008 02:07:52 -0500
+
 boost (1.34.1-13) unstable; urgency=low
 
-  * debian/rules: Build boostrap jam with -fno-strict-aliasing.
+  * debian/rules: Build bootstrap jam with -fno-strict-aliasing.
 
  -- Steve M. Robbins <smr@debian.org>  Wed, 29 Oct 2008 01:46:26 -0500
 
