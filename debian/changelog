@@ -1,3 +1,14 @@
+boost1.36 (1.36.0-3) unstable; urgency=low
+
+  * debian/rules: Include debug symbols in libboost-dbg.  Thanks for Tim
+    Ansell for the patch.  Closes: #495812.
+
+  * debian/control: Increase build-dep to debhelper >= 7.
+  * debian/compat: Set to level 7.  Level 4 or better required for debug
+    symbols fix.
+
+ -- Steve M. Robbins <smr@debian.org>  Sun, 09 Nov 2008 15:13:48 -0600
+
 boost1.36 (1.36.0-2) unstable; urgency=low
 
   * debian/patches/endian.patch: New.  Include <endian.h> unconditionally
