@@ -1,10 +1,10 @@
 boost1.36 (1.36.0-4) unstable; urgency=low
 
-  * patches/sp_counted_base.patch: New.  Exclude sparc from
-    sp_counted_base_sync case since the sparc doesn't have
-    __sync_add_and_fetch_4.
-
- -- Steve M. Robbins <smr@debian.org>  Tue, 11 Nov 2008 01:17:12 -0600
+  * patches/atomic_count.patch: New.  Exclude sparc and m68k from atomic_count_sync
+    case since they do not have __sync functions
+    (http://gcc.gnu.org/onlinedocs/gcc-4.1.0/gcc/Atomic-Builtins.html).
+  
+ -- Steve M. Robbins <smr@debian.org>  Tue, 11 Nov 2008 13:50:55 -0600
 
 boost1.36 (1.36.0-3) unstable; urgency=low
 
