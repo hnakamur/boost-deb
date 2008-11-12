@@ -4,7 +4,11 @@ boost1.36 (1.36.0-4) unstable; urgency=low
     case since they do not have __sync functions
     (http://gcc.gnu.org/onlinedocs/gcc-4.1.0/gcc/Atomic-Builtins.html).
   
- -- Steve M. Robbins <smr@debian.org>  Tue, 11 Nov 2008 13:50:55 -0600
+  * patches/math_tools_config.patch: New.  Define
+    BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS for arm, armel, mips, and
+    mipsel, as they all seem to have no log1pl() function.
+  
+ -- Steve M. Robbins <smr@debian.org>  Tue, 11 Nov 2008 14:59:07 -0600
 
 boost1.36 (1.36.0-3) unstable; urgency=low
 
