@@ -1,7 +1,7 @@
 boost1.36 (1.36.0-4) unstable; urgency=low
 
-  * patches/atomic_count.patch: New.  Exclude sparc and m68k from atomic_count_sync
-    case since they do not have __sync functions
+  * patches/atomic_count.patch: New.  Exclude sparc and m68k from
+    atomic_count_sync case since they do not have __sync functions
     (http://gcc.gnu.org/onlinedocs/gcc-4.1.0/gcc/Atomic-Builtins.html).
   
   * patches/math_tools_config.patch: New.  Define
