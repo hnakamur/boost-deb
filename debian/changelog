@@ -8,7 +8,15 @@ boost1.36 (1.36.0-4) unstable; urgency=low
     BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS for arm, armel, mips, and
     mipsel, as they all seem to have no log1pl() function.
   
- -- Steve M. Robbins <smr@debian.org>  Tue, 11 Nov 2008 14:59:07 -0600
+  * patches/add-disable-long-double.patch: New.  Add option
+    --disable-long-double which, if specified on the bjam command line,
+    omits the TR1 and C99 long double libraries.  If not specified but
+    BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS is defined, we end up with a
+    build failure.
+  * rules: Add --disable-long-double for architectures arm, armel, hppa,
+    mips, and mipsel.
+  
+ -- Steve M. Robbins <smr@debian.org>  Tue, 11 Nov 2008 21:31:35 -0600
 
 boost1.36 (1.36.0-3) unstable; urgency=low
 

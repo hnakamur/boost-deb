@@ -1,3 +1,4 @@
+add-disable-long-double.patch
 math_tools_config.patch
 atomic_count.patch
 endian.patch

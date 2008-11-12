@@ -132,12 +132,19 @@ mk_debhelper_files = \
 TOOLSET_CONFIG="using gcc : : : <compileflags>-D_REENTRANT ;"
 ifeq ($(DEB_BUILD_ARCH), hppa)
 TOOLSET_CONFIG="using gcc : : : <compileflags>-D_REENTRANT <compileflags>-mlong-calls <compileflags>-DBOOST_SP_USE_PTHREADS ;"
+JAM_OPT = --disable-long-double
 else ifeq ($(DEB_BUILD_ARCH), sparc)
 TOOLSET_CONFIG="using gcc : : : <compileflags>-D_REENTRANT <compileflags>-DBOOST_SP_USE_PTHREADS ;"
 else ifeq ($(DEB_BUILD_ARCH), arm)
 TOOLSET_CONFIG="using gcc : : : <compileflags>-D_REENTRANT <compileflags>-DBOOST_SP_USE_PTHREADS ;"
+JAM_OPT = --disable-long-double
 else ifeq ($(DEB_BUILD_ARCH), armel)
 TOOLSET_CONFIG="using gcc : : : <compileflags>-D_REENTRANT <compileflags>-DBOOST_SP_USE_PTHREADS ;"
+JAM_OPT = --disable-long-double
+else ifeq ($(DEB_BUILD_ARCH), mips)
+JAM_OPT = --disable-long-double
+else ifeq ($(DEB_BUILD_ARCH), mipsel)
+JAM_OPT = --disable-long-double
 endif
 
 PYTHON_CONFIG1 = "using python : 2.4 : /usr ;"
@@ -149,7 +156,7 @@ pyste_prefix = $(CURDIR)/debian/libboost-python$(PKGVERSION)-dev/usr
 bjam = $(CURDIR)/tools/jam/src/bjam
 
 # FIXME: find a flag to disable reading /etc/site-config.jam
-JAM = $(bjam) $(JOBS) -d2 --user-config=$(CURDIR)/user-config.jam -sHAVE_ICU=1 debug-symbols=on
+JAM = $(bjam) $(JOBS) -d2 $(JAM_OPT) --user-config=$(CURDIR)/user-config.jam -sHAVE_ICU=1 debug-symbols=on
 jam_variants = variant=release,debug threading=single,multi link=shared,static
 
 $(bjam):
