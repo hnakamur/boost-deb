@@ -1,3 +1,10 @@
+boost1.36 (1.36.0-5) unstable; urgency=low
+
+  * patches/no-long-double-math.patch: New.  Do not define log1p(long double) if
+    BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS is defined.
+
+ -- Steve M. Robbins <smr@debian.org>  Wed, 12 Nov 2008 23:28:17 -0600
+
 boost1.36 (1.36.0-4) unstable; urgency=low
 
   * patches/atomic_count.patch: New.  Exclude sparc and m68k from
