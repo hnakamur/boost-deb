@@ -2,8 +2,11 @@ boost1.36 (1.36.0-7) unstable; urgency=low
 
   * patches/atomic_count_gcc.patch: New.  GCC version >= 4.2 has moved
     <bits/atomic.h> to <ext/atomic.h>.
+  
+  * rules: Exclude math_c99l and math_tr1l from debhelper .install files
+    when --disable-long-double is applied.
 
- -- Steve M. Robbins <smr@debian.org>  Sat, 15 Nov 2008 01:03:05 -0600
+ -- Steve M. Robbins <smr@debian.org>  Sat, 15 Nov 2008 10:10:50 -0600
 
 boost1.36 (1.36.0-6) unstable; urgency=low
 
