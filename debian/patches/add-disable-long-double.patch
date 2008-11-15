@@ -43,7 +43,7 @@ c.f. http://lists.boost.org/boost-build/2008/11/20683.php
  
  lib boost_math_c99 : ../src/tr1/$(C99_SOURCES).cpp
      :         
-@@ -79,11 +94,15 @@
+@@ -79,12 +94,20 @@
   	     <link>shared:<define>BOOST_MATH_TR1_DYN_LINK=1
     ;
  
@@ -58,4 +58,10 @@ c.f. http://lists.boost.org/boost-build/2008/11/20683.php
 +}
  
  
- boost-install boost_math_c99 boost_math_c99f boost_math_c99l boost_math_tr1 boost_math_tr1f boost_math_tr1l ;
+-boost-install boost_math_c99 boost_math_c99f boost_math_c99l boost_math_tr1 boost_math_tr1f boost_math_tr1l ;
++boost-install boost_math_c99 boost_math_c99f boost_math_tr1 boost_math_tr1f ;
+ 
++if $(build-long-double) = true
++{
++boost-install boost_math_c99l boost_math_tr1l ;
++}

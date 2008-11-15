@@ -1,3 +1,13 @@
+boost1.36 (1.36.0-6) unstable; urgency=low
+
+  * patches/atomic_count.patch: Add arm, armel, and hppa to architectures
+    excluded from using atomic_count_sync.
+  
+  * patches/add-disable-long-double.patch: Only install boost_math_c99l
+    and boost_math_tr1l if build-long-double is true.
+
+ -- Steve M. Robbins <smr@debian.org>  Fri, 14 Nov 2008 20:04:17 -0600
+
 boost1.36 (1.36.0-5) unstable; urgency=low
 
   * patches/no-long-double-math.patch: New.  Do not define log1p(long double) if
