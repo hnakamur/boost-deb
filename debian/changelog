@@ -1,3 +1,10 @@
+boost1.36 (1.36.0-7) unstable; urgency=low
+
+  * patches/atomic_count_gcc.patch: New.  GCC version >= 4.2 has moved
+    <bits/atomic.h> to <ext/atomic.h>.
+
+ -- Steve M. Robbins <smr@debian.org>  Sat, 15 Nov 2008 01:03:05 -0600
+
 boost1.36 (1.36.0-6) unstable; urgency=low
 
   * patches/atomic_count.patch: Add arm, armel, and hppa to architectures
