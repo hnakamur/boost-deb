@@ -1,3 +1,9 @@
+boost1.36 (1.36.0-8) unstable; urgency=low
+
+  * patches/atomic_count_gcc.patch: Fix detection of GCC >= 4.2.
+
+ -- Steve M. Robbins <smr@debian.org>  Sun, 16 Nov 2008 11:26:30 -0600
+
 boost1.36 (1.36.0-7) unstable; urgency=low
 
   * patches/atomic_count_gcc.patch: New.  GCC version >= 4.2 has moved
