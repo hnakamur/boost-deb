@@ -1,3 +1,11 @@
+boost1.36 (1.36.0-9) unstable; urgency=low
+
+  * patches/system-error-code.patch: New.  Restore function
+    get_posix_category().  Closes: #503917.  Thanks to Deng Xiyue for
+    researching the fix.
+
+ -- Steve M. Robbins <smr@debian.org>  Sat, 22 Nov 2008 22:55:04 -0600
+
 boost1.36 (1.36.0-8) unstable; urgency=low
 
   * patches/atomic_count_gcc.patch: Fix detection of GCC >= 4.2.
