@@ -3,8 +3,15 @@ boost1.36 (1.36.0-9) unstable; urgency=low
   * patches/system-error-code.patch: New.  Restore function
     get_posix_category().  Closes: #503917.  Thanks to Deng Xiyue for
     researching the fix.
+  
+  * patches/sp_counted_base.patch: New.  Add armel, m68k, and sparc to
+    list of architectures that cannot use sp_counted_base_sync (they do
+    not have __sync functions).
+  * rules: The above patch means these architectures fall through to
+    sp_counted_base_spin, so we no longer need to specify
+    BOOST_SP_USE_PTHREADS.
 
- -- Steve M. Robbins <smr@debian.org>  Sat, 22 Nov 2008 22:55:04 -0600
+ -- Steve M. Robbins <smr@debian.org>  Sat, 22 Nov 2008 23:18:48 -0600
 
 boost1.36 (1.36.0-8) unstable; urgency=low
 
