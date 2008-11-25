@@ -1,3 +1,11 @@
+boost1.36 (1.36.0-10) unstable; urgency=low
+
+  * rules: HPPA does not have __sync_lock_test_and_set(), so cannot use
+    sp_counted_base_spin.hpp; restore BOOST_SP_USE_PTHREADS to use
+    sp_counted_base_pt.hpp instead.
+
+ -- Steve M. Robbins <smr@debian.org>  Tue, 25 Nov 2008 02:46:41 -0600
+
 boost1.36 (1.36.0-9) unstable; urgency=low
 
   * patches/system-error-code.patch: New.  Restore function
