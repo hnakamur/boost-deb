@@ -1,3 +1,14 @@
+boost1.36 (1.36.0-11) unstable; urgency=low
+
+  * patches/0001-boost.mpl-gcc-4.4-fixes.patch: New.  Fixes preprocessor
+    usage.  Closes: #505962.
+  
+  * patches/kfreebsd-jam.patch: New.  Include <unistd.h> for all GLIBC
+    systems; fixes a build failure for kFreeBSD.  Thanks to Petr Salinger
+    for the patch.  Closes: #506736.
+
+ -- Steve M. Robbins <smr@debian.org>  Sun, 07 Dec 2008 10:27:43 -0600
+
 boost1.36 (1.36.0-10) unstable; urgency=low
 
   * rules: HPPA does not have __sync_lock_test_and_set(), so cannot use
