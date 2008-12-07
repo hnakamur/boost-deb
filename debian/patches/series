@@ -1,3 +1,4 @@
+0001-boost.mpl-gcc-4.4-fixes.patch
 avoid-PATH_MAX.patch
 jam-wall-clean.patch
 python2.5-elementtree.patch

@@ -1,3 +1,10 @@
+boost1.35 (1.35.0-9) experimental; urgency=low
+
+  * patches/0001-boost.mpl-gcc-4.4-fixes.patch: New.  Fixes preprocessor
+    usage.  Closes: #505109.
+
+ -- Steve M. Robbins <smr@debian.org>  Sun, 07 Dec 2008 08:35:11 -0600
+
 boost1.35 (1.35.0-8) experimental; urgency=low
 
   * debian/patches/jam-wall-clean.patch: Additional changes to expand.c,
