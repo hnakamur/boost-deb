@@ -1,0 +1,476 @@
+Fix for #505597 (upstream https://svn.boost.org/trac/boost/ticket/2069)
+Upstream patch https://svn.boost.org/trac/boost/attachment/ticket/2069/0001-boost.mpl-gcc-4.4-fixes.patch
+
+
+--- boost-1.34.1.orig/boost/mpl/apply.hpp
++++ boost-1.34.1/boost/mpl/apply.hpp
+@@ -8,8 +8,8 @@
+ 
+ // Copyright Aleksey Gurtovoy 2000-2004
+ //
+-// Distributed under the Boost Software License, Version 1.0. 
+-// (See accompanying file LICENSE_1_0.txt or copy at 
++// Distributed under the Boost Software License, Version 1.0.
++// (See accompanying file LICENSE_1_0.txt or copy at
+ // http://www.boost.org/LICENSE_1_0.txt)
+ //
+ // See http://www.boost.org/libs/mpl for documentation.
+@@ -85,7 +85,7 @@
+     BOOST_PP_COMMA_IF(n) \
+     BOOST_MPL_PP_PARTIAL_SPEC_PARAMS(n, param, def) \
+     /**/
+-    
++
+ #   define AUX778076_APPLY_N_SPEC_PARAMS(n, param) \
+     BOOST_MPL_PP_ENUM(BOOST_PP_INC(n), param) \
+     /**/
+@@ -112,7 +112,7 @@
+       typename F, AUX778076_APPLY_DEF_PARAMS(typename T, na)
+     >
+ struct apply
+-    : aux::apply_chooser< 
++    : aux::apply_chooser<
+           aux::apply_count_args< AUX778076_APPLY_PARAMS(T) >::value
+         >::template result_< F, AUX778076_APPLY_PARAMS(T) >::type
+ {
+@@ -135,7 +135,8 @@
+ 
+ ///// iteration, depth == 1
+ 
+-#elif BOOST_PP_ITERATION_DEPTH() == 1
++#else
++#if BOOST_PP_ITERATION_DEPTH() == 1
+ 
+ #   define i_ BOOST_PP_FRAME_ITERATION(1)
+ 
+@@ -144,14 +145,14 @@
+     >
+ struct BOOST_PP_CAT(apply,i_)
+ #if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+-    : BOOST_PP_CAT(apply_wrap,i_)< 
++    : BOOST_PP_CAT(apply_wrap,i_)<
+           typename lambda<F>::type
+         AUX778076_APPLY_N_COMMA_PARAMS(i_, T)
+         >
+ {
+ #else
+ {
+-    typedef typename BOOST_PP_CAT(apply_wrap,i_)< 
++    typedef typename BOOST_PP_CAT(apply_wrap,i_)<
+           typename lambda<F>::type
+         AUX778076_APPLY_N_COMMA_PARAMS(i_, T)
+         >::type type;
+@@ -222,4 +223,5 @@
+ 
+ #   undef i_
+ 
++#endif
+ #endif // BOOST_PP_IS_ITERATING
+--- boost-1.34.1.orig/boost/mpl/apply_wrap.hpp
++++ boost-1.34.1/boost/mpl/apply_wrap.hpp
+@@ -8,8 +8,8 @@
+ 
+ // Copyright Aleksey Gurtovoy 2000-2004
+ //
+-// Distributed under the Boost Software License, Version 1.0. 
+-// (See accompanying file LICENSE_1_0.txt or copy at 
++// Distributed under the Boost Software License, Version 1.0.
++// (See accompanying file LICENSE_1_0.txt or copy at
+ // http://www.boost.org/LICENSE_1_0.txt)
+ //
+ // See http://www.boost.org/libs/mpl for documentation.
+@@ -78,7 +78,8 @@
+ 
+ ///// iteration, depth == 1
+ 
+-#elif BOOST_PP_ITERATION_DEPTH() == 1
++#else
++#if BOOST_PP_ITERATION_DEPTH() == 1
+ 
+ #   define i_ BOOST_PP_FRAME_ITERATION(1)
+ 
+@@ -140,7 +141,7 @@
+     : F::template apply< AUX778076_APPLY_WRAP_PARAMS(i_, T) >
+ {
+ #else
+-{    
++{
+     typedef typename F::template apply<
+          AUX778076_APPLY_WRAP_PARAMS(i_, T)
+         >::type type;
+@@ -169,8 +170,8 @@
+ #   undef i_
+ 
+ ///// iteration, depth == 2
+-
+-#elif BOOST_PP_ITERATION_DEPTH() == 2
++#else
++#if BOOST_PP_ITERATION_DEPTH() == 2
+ 
+ #   define j_ BOOST_PP_FRAME_ITERATION(2)
+ 
+@@ -197,4 +198,6 @@
+ 
+ #   undef j_
+ 
++#endif
++#endif
+ #endif // BOOST_PP_IS_ITERATING
+--- boost-1.34.1.orig/boost/mpl/aux_/full_lambda.hpp
++++ boost-1.34.1/boost/mpl/aux_/full_lambda.hpp
+@@ -8,8 +8,8 @@
+ 
+ // Copyright Aleksey Gurtovoy 2001-2004
+ //
+-// Distributed under the Boost Software License, Version 1.0. 
+-// (See accompanying file LICENSE_1_0.txt or copy at 
++// Distributed under the Boost Software License, Version 1.0.
++// (See accompanying file LICENSE_1_0.txt or copy at
+ // http://www.boost.org/LICENSE_1_0.txt)
+ //
+ // See http://www.boost.org/libs/mpl for documentation.
+@@ -127,7 +127,7 @@
+ {
+     typedef true_ is_le;
+     typedef mpl::arg<N> result_; // qualified for the sake of MIPSpro 7.41
+-    typedef mpl::protect<result_> type; 
++    typedef mpl::protect<result_> type;
+ };
+ 
+ 
+@@ -181,7 +181,7 @@
+     typedef typename l1::is_le is_le;
+     typedef bind1< quote1<aux::template_arity>, typename l1::result_ > arity_;
+     typedef lambda< typename if_<is_le,arity_,Arity>::type,Tag2 > l3;
+-    
++
+     typedef aux::le_result3<is_le, Tag2, mpl::lambda, l1, l2, l3> le_result_;
+     typedef typename le_result_::result_ result_;
+     typedef typename le_result_::type type;
+@@ -200,7 +200,7 @@
+ {
+     typedef lambda< F,Tag2 > l1;
+     typedef lambda< Tag1,Tag2 > l2;
+-    
++
+     typedef typename l1::is_le is_le;
+     typedef aux::le_result2<is_le, Tag2, mpl::lambda, l1, l2> le_result_;
+     typedef typename le_result_::result_ result_;
+@@ -227,7 +227,8 @@
+ 
+ ///// iteration, depth == 1
+ 
+-#elif BOOST_PP_ITERATION_DEPTH() == 1
++#else
++#if BOOST_PP_ITERATION_DEPTH() == 1
+ #define i_ BOOST_PP_FRAME_ITERATION(1)
+ 
+ #if i_ > 0
+@@ -254,7 +255,7 @@
+     typedef F<
+           BOOST_MPL_PP_REPEAT(i_, AUX778076_TYPE, L)
+         > result_;
+-    
++
+     typedef result_ type;
+ };
+ 
+@@ -299,7 +300,7 @@
+     , AUX778076_LAMBDA_PARAMS(i_, typename T)
+     , typename Tag
+     >
+-struct lambda< 
++struct lambda<
+           F<AUX778076_LAMBDA_PARAMS(i_, T)>
+         , Tag
+         AUX778076_ARITY_PARAM(int_<i_>)
+@@ -315,7 +316,7 @@
+     typedef aux::BOOST_PP_CAT(le_result,i_)<
+           is_le, Tag, F, AUX778076_LAMBDA_PARAMS(i_, l)
+         > le_result_;
+-    
++
+     typedef typename le_result_::result_ result_;
+     typedef typename le_result_::type type;
+ };
+@@ -342,9 +343,10 @@
+           F
+         AUX778076_BIND_N_PARAMS(i_, T)
+         > result_;
+-        
++
+     typedef result_ type;
+ };
+ 
+ #undef i_
++#endif
+ #endif // BOOST_PP_IS_ITERATING
+--- boost-1.34.1.orig/boost/mpl/aux_/numeric_op.hpp
++++ boost-1.34.1/boost/mpl/aux_/numeric_op.hpp
+@@ -7,8 +7,8 @@
+ 
+ // Copyright Aleksey Gurtovoy 2000-2004
+ //
+-// Distributed under the Boost Software License, Version 1.0. 
+-// (See accompanying file LICENSE_1_0.txt or copy at 
++// Distributed under the Boost Software License, Version 1.0.
++// (See accompanying file LICENSE_1_0.txt or copy at
+ // http://www.boost.org/LICENSE_1_0.txt)
+ //
+ // See http://www.boost.org/libs/mpl for documentation.
+@@ -71,12 +71,12 @@
+ 
+ namespace boost { namespace mpl {
+ 
+-template< 
++template<
+       typename Tag1
+     , typename Tag2
+ #if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
+-    , BOOST_MPL_AUX_NTTP_DECL(int, tag1_) = BOOST_MPL_AUX_MSVC_VALUE_WKND(Tag1)::value 
+-    , BOOST_MPL_AUX_NTTP_DECL(int, tag2_) = BOOST_MPL_AUX_MSVC_VALUE_WKND(Tag2)::value 
++    , BOOST_MPL_AUX_NTTP_DECL(int, tag1_) = BOOST_MPL_AUX_MSVC_VALUE_WKND(Tag1)::value
++    , BOOST_MPL_AUX_NTTP_DECL(int, tag2_) = BOOST_MPL_AUX_MSVC_VALUE_WKND(Tag2)::value
+     >
+ struct AUX778076_OP_IMPL_NAME
+     : if_c<
+@@ -98,7 +98,7 @@
+ /// for Digital Mars C++/compilers with no CTPS/TTP support
+ template<> struct AUX778076_OP_IMPL_NAME<na,na>
+ {
+-    template< typename U1, typename U2 > struct apply 
++    template< typename U1, typename U2 > struct apply
+     {
+         typedef apply type;
+         BOOST_STATIC_CONSTANT(int, value = 0);
+@@ -108,7 +108,7 @@
+ #if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+ template< typename Tag > struct AUX778076_OP_IMPL_NAME<na,Tag>
+ {
+-    template< typename U1, typename U2 > struct apply 
++    template< typename U1, typename U2 > struct apply
+     {
+         typedef apply type;
+         BOOST_STATIC_CONSTANT(int, value = 0);
+@@ -117,7 +117,7 @@
+ 
+ template< typename Tag > struct AUX778076_OP_IMPL_NAME<Tag,na>
+ {
+-    template< typename U1, typename U2 > struct apply 
++    template< typename U1, typename U2 > struct apply
+     {
+         typedef apply type;
+         BOOST_STATIC_CONSTANT(int, value = 0);
+@@ -126,7 +126,7 @@
+ #else
+ template<> struct AUX778076_OP_IMPL_NAME<na,integral_c_tag>
+ {
+-    template< typename U1, typename U2 > struct apply 
++    template< typename U1, typename U2 > struct apply
+     {
+         typedef apply type;
+         BOOST_STATIC_CONSTANT(int, value = 0);
+@@ -135,7 +135,7 @@
+ 
+ template<> struct AUX778076_OP_IMPL_NAME<integral_c_tag,na>
+ {
+-    template< typename U1, typename U2 > struct apply 
++    template< typename U1, typename U2 > struct apply
+     {
+         typedef apply type;
+         BOOST_STATIC_CONSTANT(int, value = 0);
+@@ -193,7 +193,7 @@
+ #   else // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+ 
+ /// forward declaration
+-template< 
++template<
+       typename BOOST_MPL_AUX_NA_PARAM(N1)
+     , typename BOOST_MPL_AUX_NA_PARAM(N2)
+     >
+@@ -228,7 +228,7 @@
+         )
+ };
+ 
+-template< 
++template<
+       typename N1
+     , typename N2
+     >
+@@ -238,7 +238,7 @@
+ 
+ #else // AUX778076_OP_ARITY == 2
+ 
+-template< 
++template<
+       typename BOOST_MPL_AUX_NA_PARAM(N1)
+     , typename BOOST_MPL_AUX_NA_PARAM(N2)
+     >
+@@ -287,7 +287,8 @@
+ 
+ ///// iteration, depth == 1
+ 
+-#elif BOOST_PP_ITERATION_DEPTH() == 1
++#else
++#if BOOST_PP_ITERATION_DEPTH() == 1
+ 
+ #   define i_ BOOST_PP_FRAME_ITERATION(1)
+ 
+@@ -308,4 +309,5 @@
+ 
+ #   undef i_
+ 
++#endif
+ #endif // BOOST_PP_IS_ITERATING
+--- boost-1.34.1.orig/boost/mpl/bind.hpp
++++ boost-1.34.1/boost/mpl/bind.hpp
+@@ -9,8 +9,8 @@
+ // Copyright Peter Dimov 2001
+ // Copyright Aleksey Gurtovoy 2001-2004
+ //
+-// Distributed under the Boost Software License, Version 1.0. 
+-// (See accompanying file LICENSE_1_0.txt or copy at 
++// Distributed under the Boost Software License, Version 1.0.
++// (See accompanying file LICENSE_1_0.txt or copy at
+ // http://www.boost.org/LICENSE_1_0.txt)
+ //
+ // See http://www.boost.org/libs/mpl for documentation.
+@@ -32,7 +32,7 @@
+ #   include <boost/mpl/aux_/yes_no.hpp>
+ #   if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+ #       include <boost/type_traits/is_reference.hpp>
+-#   endif 
++#   endif
+ #endif
+ 
+ #include <boost/mpl/aux_/config/bind.hpp>
+@@ -173,7 +173,7 @@
+ 
+ #else // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+ 
+-// agurt, 15/jan/02: it's not a intended to be used as a function class, and 
++// agurt, 15/jan/02: it's not a intended to be used as a function class, and
+ // MSVC6.5 has problems with 'apply' name here (the code compiles, but doesn't
+ // work), so I went with the 'result_' here, and in all other similar cases
+ template< bool >
+@@ -185,7 +185,7 @@
+     };
+ };
+ 
+-template<> 
++template<>
+ struct resolve_arg_impl<true>
+ {
+     template< typename T, AUX778076_BIND_PARAMS(typename U) > struct result_
+@@ -200,7 +200,7 @@
+ // for 'resolve_bind_arg'
+ template< typename T > struct is_bind_template;
+ 
+-template< 
++template<
+       typename T, AUX778076_BIND_PARAMS(typename U)
+     >
+ struct resolve_bind_arg
+@@ -211,7 +211,7 @@
+ 
+ #   if !defined(BOOST_MPL_CFG_NO_UNNAMED_PLACEHOLDER_SUPPORT)
+ 
+-template< typename T > 
++template< typename T >
+ struct replace_unnamed_arg_impl
+ {
+     template< typename Arg > struct result_
+@@ -221,7 +221,7 @@
+     };
+ };
+ 
+-template<> 
++template<>
+ struct replace_unnamed_arg_impl< arg<-1> >
+ {
+     template< typename Arg > struct result_
+@@ -231,7 +231,7 @@
+     };
+ };
+ 
+-template< typename T, typename Arg > 
++template< typename T, typename Arg >
+ struct replace_unnamed_arg
+     : replace_unnamed_arg_impl<T>::template result_<Arg>
+ {
+@@ -247,8 +247,8 @@
+ template< typename T > aux::no_tag is_bind_helper(protect<T>*);
+ 
+ // overload for "main" form
+-// agurt, 15/mar/02: MSVC 6.5 fails to properly resolve the overload 
+-// in case if we use 'aux::type_wrapper< bind<...> >' here, and all 
++// agurt, 15/mar/02: MSVC 6.5 fails to properly resolve the overload
++// in case if we use 'aux::type_wrapper< bind<...> >' here, and all
+ // 'bind' instantiations form a complete type anyway
+ #if !defined(BOOST_MPL_CFG_NO_BIND_TEMPLATE)
+ template<
+@@ -274,8 +274,8 @@
+ {
+     template< typename T > struct result_
+     {
+-        BOOST_STATIC_CONSTANT(bool, value = 
+-              sizeof(aux::is_bind_helper(static_cast<T*>(0))) 
++        BOOST_STATIC_CONSTANT(bool, value =
++              sizeof(aux::is_bind_helper(static_cast<T*>(0)))
+                 == sizeof(aux::yes_tag)
+             );
+     };
+@@ -361,7 +361,8 @@
+ 
+ ///// iteration, depth == 1
+ 
+-#elif BOOST_PP_ITERATION_DEPTH() == 1
++#else
++#if BOOST_PP_ITERATION_DEPTH() == 1
+ 
+ #   define i_ BOOST_PP_FRAME_ITERATION(1)
+ 
+@@ -376,7 +377,7 @@
+ template<
+       typename Tag AUX778076_BIND_N_PARAMS(i_, typename T)
+     >
+-struct BOOST_PP_CAT(bind,i_)< 
++struct BOOST_PP_CAT(bind,i_)<
+       BOOST_PP_CAT(quote,i_)<AUX778076_SPEC_NAME,Tag>
+     AUX778076_BIND_N_PARAMS(i_,T)
+     >
+@@ -441,7 +442,7 @@
+ /**/
+ 
+         typedef typename BOOST_PP_CAT(apply_wrap,i_)<
+-              f_ 
++              f_
+             BOOST_PP_COMMA_IF(i_) BOOST_MPL_PP_REPEAT(i_, AUX778076_ARG, t)
+             >::type type;
+ 
+@@ -481,7 +482,7 @@
+ 
+ #   if !defined(BOOST_MPL_CFG_NO_BIND_TEMPLATE)
+ #   if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+-    
++
+ #if i_ == BOOST_MPL_LIMIT_METAFUNCTION_ARITY
+ /// primary template (not a specialization!)
+ template<
+@@ -528,7 +529,8 @@
+ 
+ ///// iteration, depth == 2
+ 
+-#elif BOOST_PP_ITERATION_DEPTH() == 2
++#else
++#if BOOST_PP_ITERATION_DEPTH() == 2
+ 
+ #   define j_ BOOST_PP_FRAME_ITERATION(2)
+ #   if !defined(BOOST_MPL_CFG_NO_UNNAMED_PLACEHOLDER_SUPPORT)
+@@ -544,4 +546,6 @@
+ #   endif
+ #   undef j_
+ 
++#endif
++#endif
+ #endif // BOOST_PP_IS_ITERATING
