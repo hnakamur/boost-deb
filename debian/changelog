@@ -2,8 +2,11 @@ boost (1.34.1-15) unstable; urgency=low
 
   * patches/0001-boost.mpl-gcc-4.4-fixes.patch: New.  Fixes preprocessor
     usage.  Closes: #505597.
+  
+  * patches/pending-relaxed_heap.patch: New.  Include <climits> to obtain
+    CHAR_BIT; thanks to Charles Blundell for the patch.
 
- -- Steve M. Robbins <smr@debian.org>  Sat, 06 Dec 2008 21:42:24 -0600
+ -- Steve M. Robbins <smr@debian.org>  Sat, 06 Dec 2008 21:51:35 -0600
 
 boost (1.34.1-14) unstable; urgency=low
 
