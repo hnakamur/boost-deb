@@ -1,3 +1,10 @@
+boost1.37 (1.37.0-6) unstable; urgency=low
+
+  * patches/fix_eventfd_select_interrupter.patch: New.  Upstream patch
+    r50961.  Closes: #519669.
+
+ -- Steve M. Robbins <smr@debian.org>  Sat, 14 Mar 2009 16:23:29 -0500
+
 boost1.37 (1.37.0-5) unstable; urgency=low
 
   * README.Debian: 
