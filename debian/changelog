@@ -1,3 +1,13 @@
+boost1.35 (1.35.0-10) unstable; urgency=low
+
+  * rtupdate: Do not die if called for an unknown python version, just
+    remove existing symlinks.  Closes: #517203.
+  
+  * control (libboost1.35-dev): Move -doc from recommends to suggests.
+    Closes: #517399.
+
+ -- Steve M. Robbins <smr@debian.org>  Sat, 28 Mar 2009 02:30:25 -0500
+
 boost1.35 (1.35.0-9) experimental; urgency=low
 
   * patches/0001-boost.mpl-gcc-4.4-fixes.patch: New.  Fixes preprocessor
