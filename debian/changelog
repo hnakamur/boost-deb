@@ -1,3 +1,10 @@
+boost1.37 (1.37.0-8) unstable; urgency=low
+
+  * rtupdate: Do not die if called for an unknown python version, just
+    remove existing symlinks.  Closes: #520749.
+
+ -- Steve M. Robbins <smr@debian.org>  Sat, 28 Mar 2009 02:33:37 -0500
+
 boost1.37 (1.37.0-7) unstable; urgency=low
 
   * README.Debian: Add note about Boost.Test main() function.  Closes:
