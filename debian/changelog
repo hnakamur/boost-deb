@@ -1,3 +1,10 @@
+boost1.37 (1.37.0-9) unstable; urgency=low
+
+  * rtupdate: Handle versioned libboostX.Y-dbg.rtupdate properly.  Closes:
+    #525378.
+
+ -- Steve M. Robbins <smr@debian.org>  Fri, 24 Apr 2009 21:39:49 -0500
+
 boost1.37 (1.37.0-8) unstable; urgency=low
 
   * rtupdate: Do not die if called for an unknown python version, just
