@@ -152,7 +152,7 @@ bjam = $(CURDIR)/bjam
 # FIXME: find a flag to disable reading /etc/site-config.jam
 JAM = $(bjam) $(JOBS) -d2 $(JAM_OPT) --layout=system --user-config=$(CURDIR)/user-config.jam debug-symbols=on
 
-$(bjam):
+$(bjam): $(QUILT_STAMPFN)
 	./bootstrap.sh --with-icu --prefix=$(CURDIR)/debian/tmp/usr
 
 user-config.jam:

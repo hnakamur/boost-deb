@@ -1,3 +1,12 @@
+boost1.39 (1.39.0-5) unstable; urgency=low
+
+  * rules: Rule $(bjam) needs to depend on $(QUILT_STAMPFN) because
+    patches/bootstrap.patch modifies script bootstrap.sh, used to build
+    $(bjam).  Thanks to Andreas Ferber for the report and astute analysis.
+    Closes: #545535.
+
+ -- Steve M. Robbins <smr@debian.org>  Tue, 08 Sep 2009 22:09:11 -0500
+
 boost1.39 (1.39.0-4) unstable; urgency=low
 
   * rules: Create libboostX-mt.so compatibility symlinks.  Closes:
