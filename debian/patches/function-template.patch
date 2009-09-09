@@ -1,8 +1,67 @@
 Reported upstream as https://svn.boost.org/trac/boost/ticket/2469
 
---- boost1.37-1.37.0.orig/boost/function/function_template.hpp
-+++ boost1.37-1.37.0/boost/function/function_template.hpp
-@@ -950,10 +950,10 @@
+--- boost1.39-1.39.0.orig/boost/function/function_template.hpp
++++ boost1.39-1.39.0/boost/function/function_template.hpp
+@@ -781,24 +781,32 @@
+     operator=(Functor BOOST_FUNCTION_TARGET_FIX(const &) f)
+     {
+       this->clear();
++#if !defined(BOOST_NO_EXCEPTIONS)
+       try {
++#endif
+         this->assign_to(f);
++#if !defined(BOOST_NO_EXCEPTIONS)
+       } catch (...) {
+         vtable = 0;
+         throw;
+       }
++#endif
+       return *this;
+     }
+     template<typename Functor,typename Allocator>
+     void assign(Functor BOOST_FUNCTION_TARGET_FIX(const &) f, Allocator a)
+     {
+       this->clear();
++#if !defined(BOOST_NO_EXCEPTIONS)
+       try {
++#endif
+         this->assign_to_a(f,a);
++#if !defined(BOOST_NO_EXCEPTIONS)
+       } catch (...) {
+         vtable = 0;
+         throw;
+       }
++#endif
+     }
+ 
+ #ifndef BOOST_NO_SFINAE
+@@ -823,12 +831,16 @@
+         return *this;
+ 
+       this->clear();
++#if !defined(BOOST_NO_EXCEPTIONS)
+       try {
++#endif
+         this->assign_to_own(f);
++#if !defined(BOOST_NO_EXCEPTIONS)
+       } catch (...) {
+         vtable = 0;
+         throw;
+       }
++#endif
+       return *this;
+     }
+ 
+@@ -942,7 +954,7 @@
+       if (&f == this)
+         return;
+ 
+-#if !defined(BOOST_NO_EXCEPTIONS)      
++#if !defined(BOOST_NO_EXCEPTIONS)
+       try {
+ #endif
+         if (!f.empty()) {
+@@ -950,10 +962,10 @@
            f.vtable->manager(f.functor, this->functor,
                              boost::detail::function::move_functor_tag);
  		  f.vtable = 0;
@@ -10,7 +69,7 @@ Reported upstream as https://svn.boost.org/trac/boost/ticket/2469
          } else {
            clear();
          }
-+#if !defined(BOOST_NO_EXCEPTIONS)      
++#if !defined(BOOST_NO_EXCEPTIONS)
        } catch (...) {
          vtable = 0;
          throw;

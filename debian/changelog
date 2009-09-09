@@ -5,8 +5,11 @@ boost1.39 (1.39.0-5) unstable; urgency=low
     $(bjam).  Thanks to Andreas Ferber for the report and astute analysis.
     Closes: #545535.  Put the "-mt" decoration before the final suffix for
     compatibility symlinks.  Closes: #545773.
+  
+  * patches/function-template.patch: Wrap three more try/catch blocks with
+    #if !defined(BOOST_NO_EXCEPTIONS).  Closes: #545320.
 
- -- Steve M. Robbins <smr@debian.org>  Tue, 08 Sep 2009 22:36:47 -0500
+ -- Steve M. Robbins <smr@debian.org>  Tue, 08 Sep 2009 22:46:02 -0500
 
 boost1.39 (1.39.0-4) unstable; urgency=low
 
