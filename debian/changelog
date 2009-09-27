@@ -1,3 +1,10 @@
+boost1.39 (1.39.0-6) unstable; urgency=low
+
+  * patches/boost-test-invalid-read.patch: New.  Fix invalid read error
+    detected by valgrind.  Closes: #538946.
+
+ -- Steve M. Robbins <smr@debian.org>  Sun, 27 Sep 2009 01:49:33 -0500
+
 boost1.39 (1.39.0-5) unstable; urgency=low
 
   * rules: Rule $(bjam) needs to depend on $(QUILT_STAMPFN) because
