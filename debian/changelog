@@ -1,11 +1,3 @@
-boost1.40 (1.40.0-6) unstable; urgency=low
-
-  * source/format:
-  * control:
-  * rules: Switch to source format "3.0 (quilt)".
-
- -- Steve M. Robbins <smr@debian.org>  Fri, 18 Dec 2009 00:15:40 -0600
-
 boost1.40 (1.40.0-5) unstable; urgency=low
 
   * control:
@@ -14,7 +6,16 @@ boost1.40 (1.40.0-5) unstable; urgency=low
     supported python versions using "pyversions".  Thanks to Jakub Wilk
     for the patch.  Closes: #556924.
 
- -- Steve M. Robbins <smr@debian.org>  Tue, 15 Dec 2009 00:00:21 -0600
+  * source/format:
+  * control:
+  * rules: Switch to source format "3.0 (quilt)".
+  
+  * patches/gcc-4.patch: New (thanks, Jakub Wilk).  Patch from upstream
+    that works around gcc 4 bug by replacing BOOST_MPL_ASSERT by
+    BOOST_STATIC_ASSERT in mpi_datatype_oarchive.h.  Closes: #550300,
+    #561407.
+
+ -- Steve M. Robbins <smr@debian.org>  Sun, 20 Dec 2009 22:21:54 -0600
 
 boost1.40 (1.40.0-4) unstable; urgency=low
 

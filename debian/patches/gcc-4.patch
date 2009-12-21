@@ -1,0 +1,27 @@
+Description: Replace MPL_ASSERT by STATIC_ASSERT because of GCC 4.4 bug.
+Origin: https://svn.boost.org/trac/boost/changeset/56978/
+Bug: https://svn.boost.org/trac/boost/ticket/3371
+Bug-Debian: http://bugs.debian.org/550300
+Last-Update: 2009-12-19
+
+diff -r 172b8d680f5d -r 92877e472533 boost/mpi/detail/mpi_datatype_oarchive.hpp
+--- a/boost/mpi/detail/mpi_datatype_oarchive.hpp	Sat Oct 17 19:08:46 2009 +0000
++++ b/boost/mpi/detail/mpi_datatype_oarchive.hpp	Sun Oct 18 16:03:46 2009 +0000
+@@ -18,6 +18,7 @@
+ #include <boost/mpi/detail/mpi_datatype_primitive.hpp>
+ #include <boost/mpi/datatype_fwd.hpp>
+ #include <boost/mpl/assert.hpp>
++#include <boost/static_assert.hpp>
+ #include <boost/integer.hpp>
+ #include <boost/archive/detail/register_archive.hpp>
+ 
+@@ -61,7 +62,7 @@
+     {
+       // select the right sized integer for the enum
+       typedef typename boost::uint_t<8*sizeof(T)>::least int_type;
+-      BOOST_MPL_ASSERT((sizeof(T)==sizeof(int_type)));
++      BOOST_STATIC_ASSERT((sizeof(T)==sizeof(int_type)));
+       this->save(*reinterpret_cast<int_type const*>(&t));
+     }
+ 
+
