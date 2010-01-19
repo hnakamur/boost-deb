@@ -11,3 +11,6 @@ boost-build-pythonid.patch
 hurd-ellint_rd.patch
 hurd-execution_monitor.patch
 gcc-4.patch
+mapped_file-header-guard.patch
+boost-graph-printf.patch
+kfreebsd-thread.patch

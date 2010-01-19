@@ -1,3 +1,21 @@
+boost1.40 (1.40.0-6) unstable; urgency=low
+
+  * Backport changes from 1.41.0-1 through 1.41.0-3 inclusive.
+
+  * patches/date_time_date_formatting_hpp.patch: Change
+    std::locale::locale() to std::locale().  Closes: #564863.
+
+  * patches/boost-graph-printf.patch: New.  Include stdio.h, to define
+    fprintf() and stderr.  Closes: #562215.
+  
+  * patches/kfreebsd-thread.patch: New (thanks, Petr Salinger).  Fix
+    checks for __GLIBC__ source so that it builds on GNU/kFreeBSD.  
+
+  * patches/mapped_file-header-guard.patch: New.  Add missing header guard
+    (thanks, Sven Geggus).
+
+ -- Steve M. Robbins <smr@debian.org>  Mon, 18 Jan 2010 23:19:45 -0600
+
 boost1.40 (1.40.0-5) unstable; urgency=low
 
   * control:
