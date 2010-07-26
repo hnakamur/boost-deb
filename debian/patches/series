@@ -1,4 +1,3 @@
-boost-test-invalid-read.patch
 mips-asm.patch
 boost-python-examples.patch
 endian.patch
@@ -10,3 +9,6 @@ sh4.patch
 boost-build-pythonid.patch
 hurd-ellint_rd.patch
 hurd-execution_monitor.patch
+kfreebsd-thread.patch
+lambda-include-deps.patch
+fusion-name-qual.patch
