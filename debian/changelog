@@ -1,3 +1,15 @@
+boost1.46 (1.46.1-7) unstable; urgency=low
+
+  * control: Fix ungrammatical description for iostreams packages.
+    Closes: #633865.
+  
+  * rules: Dump boostrap log file if bootstrapping fails.
+  
+  * libboost-doc.README.Debian: Remove reference to packages bjam and
+    boost-build; now only need boostX.YZ-dev.  Closes: #630529.
+
+ -- Steve M. Robbins <smr@debian.org>  Wed, 17 Aug 2011 23:18:52 -0500
+
 boost1.46 (1.46.1-6) unstable; urgency=low
 
   * control(libboost-mpi-python1.46.1, libboost-python1.46.1): Suggests a
