@@ -1,3 +1,17 @@
+boost1.46 (1.46.1-8) unstable; urgency=low
+
+  * patches/gcc-4.7-threading-detection.patch: New, from upstream.  Enable
+    gcc 4.7 threading detection.  Closes: #654425.
+  
+  * patches/mpi-allocator-c++0x.patch: New.  Workaround to enable using
+    Boost.MPI with -std=c++0x mode on gcc 4.6.  Fix will be in gcc 4.6.3
+    and 4.7.  Closes: #639862.
+  
+  * patches/trac-ticket-73202.patch: New, from upstream.  Fix for using
+    boost thread and c++0x mode.  Closes: #646580.
+
+ -- Steve M. Robbins <smr@debian.org>  Wed, 04 Jan 2012 00:07:27 -0600
+
 boost1.46 (1.46.1-7) unstable; urgency=low
 
   * control: Fix ungrammatical description for iostreams packages.

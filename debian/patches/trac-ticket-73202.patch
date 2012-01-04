@@ -1,0 +1,95 @@
+Description: Fix usage of thread with C++0x
+ Add copy constructor/assignment - in C++0x, move disables implicit copy.
+ Patch taken from upstream change set 73202.
+Author: Peter Dimov
+Bug: 646580
+
+
+
+Index: boost/smart_ptr/shared_ptr.hpp
+===================================================================
+--- a/boost/smart_ptr/shared_ptr.hpp	(revision 73201)
++++ b/boost/smart_ptr/shared_ptr.hpp	(revision 73202)
+@@ -197,8 +197,18 @@
+         boost::detail::sp_enable_shared_from_this( this, p, p );
+     }
+ 
+-//  generated copy constructor, destructor are fine
++//  generated copy constructor, destructor are fine...
+ 
++#if defined( BOOST_HAS_RVALUE_REFS )
++
++// ... except in C++0x, move disables the implicit copy
++
++    shared_ptr( shared_ptr const & r ): px( r.px ), pn( r.pn ) // never throws
++    {
++    }
++
++#endif
++
+     template<class Y>
+     explicit shared_ptr(weak_ptr<Y> const & r): pn(r.pn) // may throw
+     {
+Index: boost/smart_ptr/weak_ptr.hpp
+===================================================================
+--- a/boost/smart_ptr/weak_ptr.hpp	(revision 73201)
++++ b/boost/smart_ptr/weak_ptr.hpp	(revision 73202)
+@@ -40,9 +40,25 @@
+     {
+     }
+ 
+-//  generated copy constructor, assignment, destructor are fine
++//  generated copy constructor, assignment, destructor are fine...
+ 
++#if defined( BOOST_HAS_RVALUE_REFS )
+ 
++// ... except in C++0x, move disables the implicit copy
++
++    weak_ptr( weak_ptr const & r ): px( r.px ), pn( r.pn ) // never throws
++    {
++    }
++
++    weak_ptr & operator=( weak_ptr const & r ) // never throws
++    {
++        px = r.px;
++        pn = r.pn;
++        return *this;
++    }
++
++#endif
++
+ //
+ //  The "obvious" converting constructor implementation:
+ //
+Index: boost/smart_ptr/shared_array.hpp
+===================================================================
+--- a/boost/smart_ptr/shared_array.hpp	(revision 73201)
++++ b/boost/smart_ptr/shared_array.hpp	(revision 73202)
+@@ -69,8 +69,26 @@
+     {
+     }
+ 
+-//  generated copy constructor, assignment, destructor are fine
++//  generated copy constructor, destructor are fine...
+ 
++#if defined( BOOST_HAS_RVALUE_REFS )
++
++// ... except in C++0x, move disables the implicit copy
++
++    shared_array( shared_array const & r ): px( r.px ), pn( r.pn ) // never throws
++    {
++    }
++
++#endif
++
++    // assignment
++
++    shared_array & operator=( shared_array const & r ) // never throws
++    {
++        this_type( r ).swap( *this );
++        return *this;
++    }
++
+     void reset(T * p = 0)
+     {
+         BOOST_ASSERT(p == 0 || p != px);
