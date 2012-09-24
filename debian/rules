@@ -9,17 +9,18 @@ endif
 
 DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 
-PKGVERSION = 1.49
-SOVERSION = 1.49.0
-SHLIBS_VERSION = (>= 1.49.0-1)
+PKGVERSION = 1.50
+SOVERSION = 1.50.0
+SHLIBS_VERSION = (>= 1.50.0-1)
 
 pyversions = $(shell pyversions -rv) $(shell py3versions -rv)
 
 # Boost libraries for which we want separate packages
-boost_libs := chrono date-time filesystem graph-parallel graph iostreams locale math \
-	mpi mpi-python						       \
-	program-options python regex random serialization signals      \
-	system test						       \
+boost_libs := chrono date-time exception filesystem graph-parallel \
+	graph iostreams locale math				   \
+	mpi mpi-python						   \
+	program-options python regex random serialization signals  \
+	system test						   \
 	thread timer wave
 
 # these are special cases, where /usr/lib name differs from Boost library name
@@ -77,6 +78,7 @@ mk_mta_files = $(shell echo $(call mk_base_name,$(2),$(3),$(4)).a $(call mk_base
 
 # Specify the type of files/links to install.
 # Special cases first, then general rule
+boost_filetypes_exception = a mta
 boost_filetypes_test_exec_monitor = a mta
 boost_filetypes = $(if $(boost_filetypes_$(1)), $(boost_filetypes_$(1)),a so ln mtso mta)
 
@@ -277,6 +279,9 @@ install: build clean-debhelper $(filtered_files) debian/bjam.1
 	dh_install -plibboost$(PKGVERSION)-dev tools/boostbook/dtd/* usr/share/boostbook/dtd
 	dh_install -plibboost$(PKGVERSION)-dev debian/tmp/usr/share/boost-build
 
+	# package libboost-date-time$(PKGVERSION)-dev
+	dh_installdocs -plibboost-date-time$(PKGVERSION)-dev libs/date_time/data
+
 	# package libboost-doc
 	rm -rf $(htmldir)
 	mkdir -p $(htmldir) 
@@ -286,10 +291,13 @@ install: build clean-debhelper $(filtered_files) debian/bjam.1
 	dh_link -plibboost$(PKGVERSION)-doc \
 	   usr/include/boost \
 	   usr/share/doc/libboost$(PKGVERSION)-doc/HTML/boost
-	# provide a constant symlink to the latest documents
+	# provide a constant symlink to the latest documents and examples
 	dh_link -plibboost$(PKGVERSION)-doc \
 	   usr/share/doc/libboost$(PKGVERSION)-doc/HTML \
 	   usr/share/doc/libboost-doc/HTML
+	dh_link -plibboost$(PKGVERSION)-doc \
+	   usr/share/doc/libboost$(PKGVERSION)-doc/examples \
+	   usr/share/doc/libboost-doc/examples
 
 	dh_installexamples -plibboost$(PKGVERSION)-doc debian/boost-build-examples
 	mkdir -p $(exampledir)
