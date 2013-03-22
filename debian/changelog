@@ -1,3 +1,28 @@
+boost1.53 (1.53.0-3) unstable; urgency=low
+
+  * rules: Ensure --without-context passed during install stage, too.
+  
+  * patches/chrono-duration.patch: New.  Fix conflict between
+    chrono/duration.hpp and apache2/httpd.h (thanks, Kirill Spitsin).
+    Closes: #703325.
+
+  * control: Make libboost-mpi-python depend on mpi-default-bin so that
+    mpirun is available.  Closes: #691635.
+
+ -- Steve M. Robbins <smr@debian.org>  Thu, 21 Mar 2013 23:46:40 -0500
+
+boost1.53 (1.53.0-2) unstable; urgency=low
+
+  * rules: Build with hardening flags.
+  * control: Depend on dpkg-dev, to get dpkg-buildflags.
+
+  * rules: context is not supported for ia64, s390, s390x, and sparc.
+  
+  * patches/fix-ftbfs-python-3.3.patch: New.  Allow building with
+    multiarch python3.3 (thanks, Dmitrijs Ledkovs).  Closes: #691378.
+
+ -- Steve M. Robbins <smr@debian.org>  Wed, 20 Mar 2013 01:45:32 -0500
+
 boost1.53 (1.53.0-1) unstable; urgency=low
 
   * New upstream.  Update versions in control, rules.  Update file lists
