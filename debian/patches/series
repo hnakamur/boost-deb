@@ -1,5 +1,9 @@
+thread-xtime.patch
+changeset_78679.diff
+unordered_multimap.patch
 boost-python-examples.patch
 endian.patch
+fix-ftbfs-python-3.3.patch
 boost-1.44-py3.1.patch
 pythonid.patch
 mpi-allocator-c++0x.patch
@@ -10,3 +14,5 @@ gcc4.7_trac-6755.patch
 gcc4.7_trac-76970.patch
 gcc4.7_trac-6431.patch
 gcc4.7_trac-6331.patch
+CVE-2012-2677_trac-78326.patch
+boost_locale_utf.patch

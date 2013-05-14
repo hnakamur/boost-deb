@@ -1,0 +1,41 @@
+Description: Fix read_json to compile with c++11
+ Upstream Changeset 78679
+Author: cornedbee
+Bug: 689600
+Forwarded: https://svn.boost.org/trac/boost/ticket/6785
+
+
+--- boost1.49-1.49.0.orig/boost/property_tree/detail/json_parser_read.hpp
++++ boost1.49-1.49.0/boost/property_tree/detail/json_parser_read.hpp
+@@ -102,7 +102,8 @@
+             void operator()(It b, It e) const
+             {
+                 BOOST_ASSERT(c.stack.size() >= 1);
+-                c.stack.back()->push_back(std::make_pair(c.name, Str(b, e)));
++                c.stack.back()->push_back(std::make_pair(c.name,
++                    Ptree(Str(b, e))));
+                 c.name.clear();
+                 c.string.clear();
+             }
+--- boost1.49-1.49.0.orig/boost/property_tree/detail/ptree_implementation.hpp
++++ boost1.49-1.49.0/boost/property_tree/detail/ptree_implementation.hpp
+@@ -389,7 +389,7 @@
+             template <typename P>
+             bool operator ()(const P& lhs, const P& rhs) const {
+               return lhs.first < rhs.first;
+-            };
++            }
+         };
+     }
+ 
+--- boost1.49-1.49.0.orig/libs/property_tree/test/test_xml_parser_rapidxml.cpp
++++ boost1.49-1.49.0/libs/property_tree/test/test_xml_parser_rapidxml.cpp
+@@ -15,7 +15,7 @@
+ #define BOOST_UTF8_END_NAMESPACE }}
+ #define BOOST_UTF8_DECL
+ #include <boost/detail/utf8_codecvt_facet.hpp>
+-#include "../../detail/utf8_codecvt_facet.cpp"
++#include <boost/detail/utf8_codecvt_facet.ipp>
+ 
+ int test_main(int argc, char *argv[])
+ {

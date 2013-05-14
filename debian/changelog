@@ -1,3 +1,31 @@
+boost1.49 (1.49.0-4) unstable; urgency=low
+
+  * patches/thread-xtime.patch: New.  Fix build failures due to enum value
+    TIME_UTC.  Closes: #707389, 707540, 695826, 701377, 703980.
+  * patches/changeset_78679.diff: New.  Fix compile of read_json.  
+    Closes: #689600.
+  * patches/unordered_multimap.patch: New.  Fix boost::unordered_multimap.
+    Closes: #692868
+  * patches/fix-ftbfs-python-3.3.patch: New.  Allow building with
+    multiarch python3.3 (thanks, Dmitrijs Ledkovs).  Closes: #691378.
+
+ -- Steve M. Robbins <smr@debian.org>  Tue, 14 May 2013 01:05:39 -0500
+
+boost1.49 (1.49.0-3.2) unstable; urgency=high
+
+  * Non-maintainer upload by the Security Team..
+  * Fix UTF-8 validation issues (closes: #699649).
+
+ -- Michael Gilbert <mgilbert@debian.org>  Mon, 04 Feb 2013 01:16:11 +0000
+
+boost1.49 (1.49.0-3.1) unstable; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * CVE-2012-2677_trac-78326.patch: Fixes buffer overflow
+    Closes: #677197
+
+ -- Luk Claes <luk@debian.org>  Sat, 23 Jun 2012 08:41:48 +0200
+
 boost1.49 (1.49.0-3) unstable; urgency=low
 
   * gcc4.7_trac-6790.patch:
