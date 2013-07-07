@@ -1,13 +1,15 @@
 #! /usr/bin/make -f
 
 # Boost libraries for which we want separate packages
-# context is special in that it is not supported yet on several architectures
-boost_libs := atomic chrono date-time exception filesystem	\
-              graph graph-parallel iostreams locale math mpi		\
+# context is conditionally compiled because it is not supported yet on several architectures
+# coroutine depends on context, so it is also conditionally compiled
+boost_libs := atomic chrono date-time exception filesystem		\
+              graph graph-parallel iostreams locale log math mpi	\
               mpi-python program-options python random regex		\
               serialization signals system test thread timer wave
 
 # these are special cases, where /usr/lib name differs from Boost library name
+boost_lib_log := log log_setup
 boost_lib_math := math_c99 math_c99f math_tr1 math_tr1f
 boost_lib_math_long_double := math_c99l math_tr1l
 boost_lib_serialization := serialization wserialization
@@ -200,6 +202,7 @@ mk_ln_files = $(shell echo $(call mk_base_name,$(2),$(3),$(4)).so.$(SOVERSION) $
 
 # Specify the type of files/links to install.
 # Special cases first, then general rule
+boost_filetypes_coroutine = a
 boost_filetypes_exception = a
 boost_filetypes_test_exec_monitor = a
 boost_filetypes = $(if $(boost_filetypes_$(1)), $(boost_filetypes_$(1)),a so ln)
@@ -293,9 +296,9 @@ BUILD_CONTEXT = no
 endif
 
 ifeq ($(BUILD_CONTEXT), yes)
-boost_libs += context
+boost_libs += context coroutine
 else
-JAM_WITHOUT += --without-context
+JAM_WITHOUT += --without-context --without-coroutine
 endif
 
 ifeq ($(BUILD_LONG_DOUBLE), yes)

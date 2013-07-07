@@ -1,8 +1,23 @@
+boost1.54 (1.54.0-2) unstable; urgency=low
+
+  * Add packages for Boost.Coroutine.  Both coroutine and context are
+    conditionally compiled.
+
+  * patches/001-coroutine.patch:
+  * patches/002-date-time.patch: New.  Upstream maintenance fixes from
+    http://www.boost.org/patches/.
+
+  * patches/hurd-clock-gettime.patch: New.  GNU Hurd has clock_gettime()
+    despite not defining _POSIX_TIMERS.  Closes: #714847.
+  
+ -- Steve M. Robbins <smr@debian.org>  Sat, 06 Jul 2013 19:52:17 -0500
+
 boost1.54 (1.54.0-1) unstable; urgency=low
 
   * New upstream.
+    - Add shared library packages for new library Boost.Log.
 
- -- Steve M. Robbins <smr@debian.org>  Mon, 01 Jul 2013 13:59:13 -0500
+ -- Steve M. Robbins <smr@debian.org>  Mon, 01 Jul 2013 21:28:11 -0500
 
 boost1.53 (1.53.0-6) UNRELEASED; urgency=low
 
