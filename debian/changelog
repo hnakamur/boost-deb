@@ -1,3 +1,11 @@
+boost1.54 (1.54.0-5) unstable; urgency=low
+
+  * patches/changeset_84950.diff: New.  Upstream patch for recent versions
+    of glibc which always assume int64_t support.  Closes: #739807,
+    #739904.
+
+ -- Steve M. Robbins <smr@debian.org>  Fri, 28 Feb 2014 22:16:37 -0600
+
 boost1.54 (1.54.0-4) unstable; urgency=low
 
   [ Dmitrijs Ledkovs ]
