@@ -7,7 +7,7 @@ MPI_CONFIG = "using mpi ;"
 
 # Boost libraries for which we want separate packages
 # context is conditionally compiled because it is not supported yet on several architectures
-# coroutine depends on context, so it is also conditionally compiled
+# coroutine and coroutine2 depend on context, so they are also conditionally compiled
 boost_libs := atomic chrono date-time exception filesystem		\
               graph graph-parallel iostreams locale log math mpi	\
               mpi-python program-options python random regex		\
@@ -64,10 +64,6 @@ override_dh_auto_build: $(bjam) debian/bjam.1
 	cd tools/bcp && $(JAM)
 	cd tools/inspect/build && $(JAM)
 	cd tools/quickbook && $(JAM)
-	# No longer part of boost 1.56+
-	# cd tools/wave/build && $(JAM)
-	# No longer part of boost 1.58+
-	# cd tools/regression/build && $(JAM)
 	cd libs/python/pyste/install && python setup.py build
 
 testsuite:
@@ -346,7 +342,7 @@ endif
 ifeq ($(BUILD_CONTEXT), yes)
 boost_libs += context coroutine
 else
-JAM_WITHOUT += --without-context --without-coroutine
+JAM_WITHOUT += --without-context --without-coroutine --without-coroutine2
 endif
 
 ifeq ($(BUILD_LONG_DOUBLE), yes)
