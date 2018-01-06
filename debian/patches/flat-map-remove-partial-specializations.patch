@@ -1,0 +1,52 @@
+From 5e4a107e82ab3281688311d22d2bfc2fddcf84a3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ion=20Gazta=C3=B1aga?= <igaztanaga@gmail.com>
+Date: Fri, 25 Nov 2016 23:56:33 +0100
+Subject: [PATCH] Fixes Ticket #12534: flat_map fails to compile if included
+ after type_traits is instantiated under gcc
+
+---
+ doc/container.qbk                       |  1 +
+ include/boost/container/detail/pair.hpp | 30 ------------------------------
+ 2 files changed, 1 insertion(+), 30 deletions(-)
+
+diff --git a/include/boost/container/detail/pair.hpp b/include/boost/container/detail/pair.hpp
+index 63d1dead..4abff4b4 100644
+--- a/boost/container/detail/pair.hpp
++++ b/boost/container/detail/pair.hpp
+@@ -428,36 +428,6 @@ inline void swap(pair<T1, T2>& x, pair<T1, T2>& y)
+ }  //namespace container_detail {
+ }  //namespace container {
+ 
+-
+-//Without this specialization recursive flat_(multi)map instantiation fails
+-//because is_enum needs to instantiate the recursive pair, leading to a compilation error).
+-//This breaks the cycle clearly stating that pair is not an enum avoiding any instantiation.
+-template<class T>
+-struct is_enum;
+-
+-template<class T, class U>
+-struct is_enum< ::boost::container::container_detail::pair<T, U> >
+-{
+-   static const bool value = false;
+-};
+-
+-template<class T, class U>
+-struct is_enum< ::std::pair<T, U> >
+-{
+-   static const bool value = false;
+-};
+-
+-template <class T>
+-struct is_class;
+-
+-//This specialization is needed to avoid instantiation of pair in
+-//is_class, and allow recursive maps.
+-template <class T1, class T2>
+-struct is_class< ::boost::container::container_detail::pair<T1, T2> >
+-{
+-   static const bool value = true;
+-};
+-
+ #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
+ 
+ template<class T1, class T2>
