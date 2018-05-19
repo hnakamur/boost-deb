@@ -5,7 +5,7 @@ Priority: optional
 Maintainer: Debian Boost Team <pkg-boost-devel@lists.alioth.debian.org>
 Uploaders: Steve M. Robbins <smr@debian.org>
 Build-Depends: debhelper (>= 9), dpkg-dev (>= 1.16.1~), dctrl-tools,
- zlib1g-dev, libbz2-dev, libicu-dev (>= 57), mpi-default-dev,
+ zlib1g-dev, libbz2-dev, libicu-dev (>= 60), mpi-default-dev,
  bison, flex, docbook-to-man, help2man, xsltproc, doxygen, 
  dh-python,
  g++ (>= 4:5-0), g++-6,
@@ -997,6 +997,7 @@ Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
+Breaks: ncmpcpp (<< 0.8.1-1+b2), libmapnik3.0 (<< 3.0.20+ds-1+b2), aegisub (<< 3.2.2+dfsg-3.),
 Description: regular expression library for C++
  This package forms part of the Boost C++ Libraries collection.
  .

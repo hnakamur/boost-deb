@@ -1,3 +1,18 @@
+boost1.62 (1.62.0+dfsg-5.1) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+  * The rebuild against icu 60 changes some symbols as boost::regex
+    embeds the icu version on them. Thus:
+    - Build-depend on libicu-dev >= 60 to ensure we build with the new
+      ABI.
+    - Bump the shlibs version to ensure that rdeps that build against the
+      new ABI get a minimum dependency on the shared lib.
+    - Add breaks against packages built against the old ABI, so that those
+      packages and libboost-regex are upgraded in lockstep.
+    - All of the above closes: #898369.
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Sat, 19 May 2018 15:51:14 +0200
+
 boost1.62 (1.62.0+dfsg-5) unstable; urgency=medium
 
   * patches/flat-map-remove-partial-specializations.patch: New.  Upstream
