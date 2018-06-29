@@ -1,3 +1,8 @@
+From: Giovanni Mascellani <gio@debian.org>
+Subject: Fix FTBFS with Python 3.7
+
+The patch is backported from later Boost releases.
+
 Index: boost1.62-1.62.0+dfsg/libs/python/src/converter/builtin_converters.cpp
 ===================================================================
 --- boost1.62-1.62.0+dfsg.orig/libs/python/src/converter/builtin_converters.cpp
