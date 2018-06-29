@@ -1,6 +1,7 @@
 boost1.62 (1.62.0+dfsg-6) UNRELEASED; urgency=medium
 
   * Fix building with Python 3.7 (closes: #902702).
+  * Update Vcs-* fields after migration to git and to salsa.
 
  -- Giovanni Mascellani <gio@debian.org>  Fri, 29 Jun 2018 20:59:49 +0200
 
