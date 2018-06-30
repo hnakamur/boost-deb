@@ -1,10 +1,10 @@
-boost1.62 (1.62.0+dfsg-6) UNRELEASED; urgency=medium
+boost1.62 (1.62.0+dfsg-6) unstable; urgency=medium
 
   * Fix building with Python 3.7 (closes: #902702).
   * Update Vcs-* fields after migration to git and to salsa.
   * Bump Standards-Version to 4.1.4.
 
- -- Giovanni Mascellani <gio@debian.org>  Fri, 29 Jun 2018 20:59:49 +0200
+ -- Giovanni Mascellani <gio@debian.org>  Sat, 30 Jun 2018 22:55:57 +0200
 
 boost1.62 (1.62.0+dfsg-5.1) unstable; urgency=medium
 
