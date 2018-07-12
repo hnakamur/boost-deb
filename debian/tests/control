@@ -1,0 +1,83 @@
+Tests: atomic
+Depends: libboost-atomic-dev, build-essential, cmake
+
+Tests: chrono
+Depends: libboost-chrono-dev, libboost-system-dev, build-essential, cmake
+
+Tests: context
+Depends: libboost-context-dev, build-essential, cmake
+
+Tests: datetime
+Depends: libboost-date-time-dev, build-essential, cmake
+
+Tests: exception
+Depends: libboost-exception-dev, build-essential, cmake
+Restrictions: allow-stderr
+
+Tests: fiber
+Depends: libboost-fiber-dev, build-essential, cmake
+
+Tests: filesystem
+Depends: libboost-filesystem-dev, build-essential, cmake
+
+Tests: graph
+Depends: libboost-graph-dev, build-essential, cmake
+
+Tests: graph-parallel
+Depends: libboost-graph-parallel-dev, libboost-mpi-dev, libboost-system-dev, mpi-default-dev, build-essential, libgraph-easy-perl, cmake
+
+Tests: iostreams
+Depends: libboost-iostreams-dev, build-essential, cmake
+
+Tests: locale
+Depends: libboost-locale-dev, build-essential, cmake
+
+Tests: log
+Depends: libboost-log-dev, build-essential, cmake
+
+Tests: math
+Depends: libboost-math-dev, build-essential, cmake
+
+Tests: mpi
+Depends: libboost-mpi-dev, mpi-default-dev, build-essential, cmake
+
+Tests: mpi-python
+Depends: libboost-mpi-python-dev, mpi-default-dev, python-minimal
+
+Tests: program-options
+Depends: libboost-program-options-dev, build-essential, cmake
+
+Tests: python
+Depends: libboost-python-dev, python-minimal, cmake
+
+Tests: random
+Depends: libboost-random-dev, build-essential, cmake
+
+Tests: regex
+Depends: libboost-regex-dev, build-essential, cmake, html2text
+
+Tests: serialization
+Depends: libboost-serialization-dev, libboost-random-dev, build-essential, cmake
+
+Tests: signals
+Depends: libboost-signals-dev, build-essential, cmake
+
+Tests: system
+Depends: libboost-system-dev, build-essential, cmake
+Restrictions: allow-stderr
+
+Tests: test
+Depends: libboost-test-dev, build-essential, cmake
+Restrictions: allow-stderr
+
+Tests: thread
+Depends: libboost-thread-dev, build-essential, cmake
+
+Tests: timer
+Depends: libboost-timer-dev, build-essential, cmake
+
+Tests: type-erasure
+Depends: libboost-type-erasure-dev, build-essential, cmake
+
+Tests: wave
+Depends: libboost-wave-dev, build-essential, cmake
