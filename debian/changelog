@@ -1,3 +1,10 @@
+boost1.62 (1.62.0+dfsg-7) unstable; urgency=medium
+
+  * [9b3650f] Add myself to uploaders
+  * [2d088ce] Add initial autopkgtests
+
+ -- Anton Gladky <gladk@debian.org>  Thu, 12 Jul 2018 19:14:00 +0200
+
 boost1.62 (1.62.0+dfsg-6) unstable; urgency=medium
 
   * Fix building with Python 3.7 (closes: #902702).
