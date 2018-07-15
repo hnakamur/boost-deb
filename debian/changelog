@@ -1,3 +1,12 @@
+boost1.62 (1.62.0+dfsg-8) unstable; urgency=medium
+
+  * [85e2e8d] Add missing dependencies in python-autopkgtest
+  * [d7ef962] Add missing deps (threads) in wave-autopkgtest
+  * [1b25ec5] Add .gitlab-cy.yml to trigger autopkgtest in CI
+  * [826e6fd] Add missing dependency in wave-test
+
+ -- Anton Gladky <gladk@debian.org>  Sun, 15 Jul 2018 20:19:13 +0200
+
 boost1.62 (1.62.0+dfsg-7) unstable; urgency=medium
 
   * [9b3650f] Add myself to uploaders
