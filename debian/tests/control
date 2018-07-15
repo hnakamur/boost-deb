@@ -48,7 +48,7 @@ Tests: program-options
 Depends: libboost-program-options-dev, build-essential, cmake
 
 Tests: python
-Depends: libboost-python-dev, python-minimal, cmake
+Depends: libboost-python-dev, python-minimal, cmake, build-essential, clang
 
 Tests: random
 Depends: libboost-random-dev, build-essential, cmake
