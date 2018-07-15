@@ -80,4 +80,4 @@ Tests: type-erasure
 Depends: libboost-type-erasure-dev, build-essential, cmake
 
 Tests: wave
-Depends: libboost-wave-dev, build-essential, cmake
+Depends: libboost-wave-dev, libboost-thread-dev, build-essential, cmake
