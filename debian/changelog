@@ -1,3 +1,10 @@
+boost1.62 (1.62.0+dfsg-9) unstable; urgency=medium
+
+  * [7809fdb] Drop dependency on libstdc++-4.8-dev. (Closes: #908732)
+  * [c9ad4c1] Drop versioned dependency on g++-6. (Closes: #892390)
+
+ -- Anton Gladky <gladk@debian.org>  Thu, 13 Sep 2018 22:40:44 +0200
+
 boost1.62 (1.62.0+dfsg-8) unstable; urgency=medium
 
   * [85e2e8d] Add missing dependencies in python-autopkgtest
