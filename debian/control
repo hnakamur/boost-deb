@@ -23,7 +23,7 @@ Package: libboost1.62-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
-Depends: ${misc:Depends}, ${shlibs:Depends}, libstdc++-4.8-dev | libstdc++-dev
+Depends: ${misc:Depends}, ${shlibs:Depends}, libstdc++-dev
 Suggests: libboost1.62-doc,
  libboost-atomic1.62-dev,
  libboost-chrono1.62-dev,
