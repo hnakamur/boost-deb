@@ -1,3 +1,10 @@
+boost1.62 (1.62.0+dfsg-10) unstable; urgency=medium
+
+  * [e21ab62] Set gcc version 8 for the build.
+  * [1886a38] Add dependency on g++-8.
+
+ -- Anton Gladky <gladk@debian.org>  Fri, 14 Sep 2018 09:41:15 +0200
+
 boost1.62 (1.62.0+dfsg-9) unstable; urgency=medium
 
   * [7809fdb] Drop dependency on libstdc++-4.8-dev. (Closes: #908732)
