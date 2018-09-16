@@ -1,3 +1,9 @@
+boost1.67 (1.67.0-7~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Anton Gladky <gladk@debian.org>  Sun, 16 Sep 2018 09:44:36 +0200
+
 boost1.67 (1.67.0-7) unstable; urgency=medium
 
   * [99c7ebf] Remove dependency on libstdc++(-4.8|)-dev. (Closes: #908737)
