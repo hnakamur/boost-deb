@@ -1,6 +1,7 @@
 boost1.67 (1.67.0-8) UNRELEASED; urgency=medium
 
   * d/rules: Remove trailing whitespaces
+  * d/watch: Use https protocol
 
  -- Ondřej Nový <onovy@debian.org>  Mon, 01 Oct 2018 10:14:39 +0200
 
