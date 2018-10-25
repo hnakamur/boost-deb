@@ -11,3 +11,4 @@ fix-examples.patch
 disable-remote-links.patch
 fix-mpi-python37.patch
 0001-Add-PEP-3149-compliant-extension-suffix-discovery.patch
+12726cda009a855073b9bedbdce57b6ce7763da2.patch
