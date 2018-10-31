@@ -3,6 +3,8 @@ boost1.67 (1.67.0-9) UNRELEASED; urgency=medium
   * Drop rtupdate logic for python2, it was never ported to python3 and
     upstream has moved onto co-installable names anyway. Also python2
     default is not going change ever again.
+  * Include patch to unbreak mongo testsuite with boost 1.67 program
+    options.
 
  -- Dimitri John Ledkov <xnox@ubuntu.com>  Wed, 31 Oct 2018 17:22:47 +0000
 
