@@ -1,4 +1,4 @@
-boost1.67 (1.67.0-10) UNRELEASED; urgency=medium
+boost1.67 (1.67.0-10) unstable; urgency=medium
 
   [ Giovanni Mascellani ]
   * Rebuild against icu 63.
@@ -9,7 +9,7 @@ boost1.67 (1.67.0-10) UNRELEASED; urgency=medium
   [ Dimitri John Ledkov ]
   * Add breaks on nheko in unstable.
 
- -- Giovanni Mascellani <gio@debian.org>  Tue, 13 Nov 2018 11:26:19 +0100
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Tue, 13 Nov 2018 12:47:47 +0000
 
 boost1.67 (1.67.0-9) unstable; urgency=medium
 
