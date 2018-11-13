@@ -1,3 +1,11 @@
+boost1.67 (1.67.0-10) UNRELEASED; urgency=medium
+
+  * Rebuild against icu 63.
+    + Add shlibs versioning information and breakages so that reverse
+      dependencies are rebuilt appropriately.
+
+ -- Giovanni Mascellani <gio@debian.org>  Tue, 13 Nov 2018 11:26:19 +0100
+
 boost1.67 (1.67.0-9) unstable; urgency=medium
 
   * Drop rtupdate logic for python2, it was never ported to python3 and
