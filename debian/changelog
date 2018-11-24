@@ -1,3 +1,12 @@
+boost1.67 (1.67.0-11) UNRELEASED; urgency=medium
+
+  * Split debian/rules into arch and indep rules, so that arch-independent
+    packages are not uselessly built when arch-dependent packages are
+    requested and viceversa (closes: #914053).
+    + This should also fix some intermittent FTBFS (closes: #913709).
+
+ -- Giovanni Mascellani <gio@debian.org>  Sat, 24 Nov 2018 22:46:29 +0100
+
 boost1.67 (1.67.0-10) unstable; urgency=medium
 
   [ Giovanni Mascellani ]
