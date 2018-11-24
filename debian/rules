@@ -41,6 +41,167 @@ DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/buildflags.mk
 include /usr/share/dpkg/architecture.mk
 
+# set the number of build jobs
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+  JOBS := -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+endif
+
+version_full := $(shell dpkg-parsechangelog | grep Version | cut -d' ' -f2)
+version_upstream := $(shell echo $(version_full) | cut -d'-' -f1)
+version_major := $(shell echo $(version_upstream) | cut -d'.' -f1,2)
+
+PKGVERSION = $(version_major)
+SOVERSION = $(version_upstream)
+
+
+# Function to map Boost component name to set of shared library names
+# Input: Boost component name
+# Return: shared library names for the given Boost library
+boost_lib = $(if $(boost_lib_$(1)), $(boost_lib_$(1)), $(1))
+
+# Function to map Boost component name to set of suffixes for the library
+# Input: Boost component name
+# Return: suffixes for the given Boost component
+boost_suffixes = $(if $(boost_suffixes_$(1)), $(boost_suffixes_$(1)),"")
+
+# Helpers to make basic and decorated library names
+# Input: library, suffix
+# Return: base library filename for short or full name
+mk_base_name = usr/lib/$(DEB_HOST_MULTIARCH)/libboost_$(subst -,_,$(1))$(2)
+
+# Input: component
+# Return: package name for shared library or development
+mk_pkg_lib = libboost-$(1)$(SOVERSION)
+mk_pkg_dev = libboost-$(1)$(PKGVERSION)-dev
+
+# Helpers to generate debhelper input filenames.
+# Input: component
+# Return: prefix to debhelper filenames
+mk_deb_lib = debian/$(call mk_pkg_lib,$(1))
+mk_deb_dev = debian/$(call mk_pkg_dev,$(1))
+
+# Helpers that update debhelper .install or .links files
+# Input: component, library, suffix
+# Output: none
+mk_so_files = $(shell echo debian/tmp/$(call mk_base_name,$(2),$(3)).so.$(SOVERSION) >> $(call mk_deb_lib,$(1)).install)
+mk_a_files = $(shell echo debian/tmp/$(call mk_base_name,$(2),$(3)).a >> $(call mk_deb_dev,$(1)).install)
+mk_ln_files = $(shell echo $(call mk_base_name,$(2),$(3)).so.$(SOVERSION) $(call mk_base_name,$(2),$(3)).so >> $(call mk_deb_dev,$(1)).links)
+
+# Specify the type of files/links to install.
+# Special cases first, then general rule
+boost_filetypes_exception = a
+boost_filetypes_test_exec_monitor = a
+boost_filetypes = $(if $(boost_filetypes_$(1)), $(boost_filetypes_$(1)),a so ln)
+
+# Function that updates debhelper files for a given library
+# Input: component, library, suffix
+# Output: none
+mk_files = $(foreach fn,$(call boost_filetypes,$(2)),$(call mk_$(fn)_files,$(1),$(2),$(3)))
+
+# helpers to make and install lintian override files
+
+# Input: package, override
+add_override = echo $(1): $(2) >> debian/$(1).lintian-overrides;
+
+# Input: override
+add_dev_override = $(call add_override,libboost$(PKGVERSION)-dev,$(1))
+add_doc_override = $(call add_override,libboost$(PKGVERSION)-doc,$(1))
+
+# Input: component, lintian-warning
+add_lib_override = $(call add_override,$(call mk_pkg_lib,$(1)),$(2))
+add_libdev_override = $(call add_override,$(call mk_pkg_dev,$(1)),$(2))
+
+# Input: package-name-base, versioned-package-name
+cp_debhelper = set -e ; for s in doc-base examples postinst prerm README.Debian; do \
+	if test -f debian/$(1).$$s; then cp -f debian/$(1).$$s debian/$(2).$$s; fi; done
+
+# Function that updates debhelper files for all libraries shipped.
+mk_debhelper_files = \
+	$(call add_dev_override,extra-license-file) \
+	$(call add_doc_override,extra-license-file) \
+	$(foreach l, $(boost_libs), \
+		echo "making debhelper files for $(l)..."; \
+		$(call add_lib_override,$(l),package-name-doesnt-match-sonames) \
+		$(foreach ll, $(call boost_lib,$(l)), \
+			$(foreach suf, $(call boost_suffixes,$(l)), \
+				$(call mk_files,$(l),$(ll),$(suf)) \
+			) \
+		) \
+	)
+
+TOOLSET_CONFIG = 'using gcc : : : <compileflags>"$(CPPFLAGS)" <cflags>"$(CFLAGS)" <cxxflags>"$(CXXFLAGS) -Wno-unused-local-typedefs" <linkflags>"$(LDFLAGS)" ;'
+BUILD_CONTEXT = yes
+BUILD_LONG_DOUBLE = yes
+
+DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+
+ifeq ($(DEB_BUILD_ARCH), alpha)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), arm)
+BUILD_LONG_DOUBLE = no
+else ifeq ($(DEB_BUILD_ARCH), armel)
+BUILD_LONG_DOUBLE = no
+else ifeq ($(DEB_BUILD_ARCH), armhf)
+BUILD_LONG_DOUBLE = no
+else ifeq ($(DEB_BUILD_ARCH), arm64)
+BUILD_LONG_DOUBLE = no
+JAM_OPT += pch=off
+else ifeq ($(DEB_BUILD_ARCH), hppa)
+BUILD_LONG_DOUBLE = no
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), ia64)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), m68k)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), mips)
+BUILD_LONG_DOUBLE = no
+else ifeq ($(DEB_BUILD_ARCH), mipsel)
+BUILD_LONG_DOUBLE = no
+else ifeq ($(DEB_BUILD_ARCH), mips64)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), mips64el)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), powerpcspe)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), ppc64)
+BUILD_CONTEXT = yes
+else ifeq ($(DEB_BUILD_ARCH), ppc64el)
+BUILD_CONTEXT = yes
+else ifeq ($(DEB_BUILD_ARCH), s390)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), s390x)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), sh4)
+BUILD_LONG_DOUBLE = no
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), sparc)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), sparc64)
+BUILD_CONTEXT = no
+else ifeq ($(DEB_BUILD_ARCH), x32)
+BUILD_CONTEXT = no
+endif
+
+ifeq ($(BUILD_CONTEXT), yes)
+boost_libs += context coroutine fiber
+else
+JAM_WITHOUT += --without-context --without-coroutine --without-fiber
+endif
+
+ifeq ($(BUILD_LONG_DOUBLE), yes)
+boost_lib_math += $(boost_lib_math_long_double)
+else
+JAM_OPT += --disable-long-double
+endif
+
+exampledir = debian/libboost$(PKGVERSION)-doc/usr/share/doc/libboost$(PKGVERSION)-doc/examples
+bjam = $(CURDIR)/bjam
+bbv2dir = $(CURDIR)/tools/build
+
+# With --ignore-site-config, can probably drop Build-Conflicts on boost-build.
+JAM = $(bjam) $(JOBS) -d2 $(JAM_OPT) --layout=system --ignore-site-config --user-config=$(CURDIR)/user-config.jam debug-symbols=on
+JAM_DOC = $(bjam) $(JOBS) -d2 --ignore-site-config --user-config=$(CURDIR)/user-config-doc.jam
+
 %:
 	dh $@ --with python2 --with python3
 
@@ -221,170 +382,6 @@ override_dh_strip:
 override_dh_makeshlibs:
 	dh_makeshlibs -plibboost-regex1.67.0 -V 'libboost-regex1.67.0 (>= 1.67.0-10)'
 	dh_makeshlibs --remaining-packages
-
-# set the number of build jobs
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-  JOBS := -j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-endif
-
-version_full := $(shell dpkg-parsechangelog | grep Version | cut -d' ' -f2)
-version_upstream := $(shell echo $(version_full) | cut -d'-' -f1)
-version_major := $(shell echo $(version_upstream) | cut -d'.' -f1,2)
-
-PKGVERSION = $(version_major)
-SOVERSION = $(version_upstream)
-
-
-# Function to map Boost component name to set of shared library names
-# Input: Boost component name
-# Return: shared library names for the given Boost library
-boost_lib = $(if $(boost_lib_$(1)), $(boost_lib_$(1)), $(1))
-
-# Function to map Boost component name to set of suffixes for the library
-# Input: Boost component name
-# Return: suffixes for the given Boost component
-boost_suffixes = $(if $(boost_suffixes_$(1)), $(boost_suffixes_$(1)),"")
-
-# Helpers to make basic and decorated library names
-# Input: library, suffix
-# Return: base library filename for short or full name
-mk_base_name = usr/lib/$(DEB_HOST_MULTIARCH)/libboost_$(subst -,_,$(1))$(2)
-
-# Input: component
-# Return: package name for shared library or development
-mk_pkg_lib = libboost-$(1)$(SOVERSION)
-mk_pkg_dev = libboost-$(1)$(PKGVERSION)-dev
-
-# Helpers to generate debhelper input filenames.
-# Input: component
-# Return: prefix to debhelper filenames
-mk_deb_lib = debian/$(call mk_pkg_lib,$(1))
-mk_deb_dev = debian/$(call mk_pkg_dev,$(1))
-
-# Helpers that update debhelper .install or .links files
-# Input: component, library, suffix
-# Output: none
-mk_so_files = $(shell echo debian/tmp/$(call mk_base_name,$(2),$(3)).so.$(SOVERSION) >> $(call mk_deb_lib,$(1)).install)
-mk_a_files = $(shell echo debian/tmp/$(call mk_base_name,$(2),$(3)).a >> $(call mk_deb_dev,$(1)).install)
-mk_ln_files = $(shell echo $(call mk_base_name,$(2),$(3)).so.$(SOVERSION) $(call mk_base_name,$(2),$(3)).so >> $(call mk_deb_dev,$(1)).links)
-
-# Specify the type of files/links to install.
-# Special cases first, then general rule
-boost_filetypes_exception = a
-boost_filetypes_test_exec_monitor = a
-boost_filetypes = $(if $(boost_filetypes_$(1)), $(boost_filetypes_$(1)),a so ln)
-
-# Function that updates debhelper files for a given library
-# Input: component, library, suffix
-# Output: none
-mk_files = $(foreach fn,$(call boost_filetypes,$(2)),$(call mk_$(fn)_files,$(1),$(2),$(3)))
-
-# helpers to make and install lintian override files
-
-# Input: package, override
-add_override = echo $(1): $(2) >> debian/$(1).lintian-overrides;
-
-# Input: override
-add_dev_override = $(call add_override,libboost$(PKGVERSION)-dev,$(1))
-add_doc_override = $(call add_override,libboost$(PKGVERSION)-doc,$(1))
-
-# Input: component, lintian-warning
-add_lib_override = $(call add_override,$(call mk_pkg_lib,$(1)),$(2))
-add_libdev_override = $(call add_override,$(call mk_pkg_dev,$(1)),$(2))
-
-# Input: package-name-base, versioned-package-name
-cp_debhelper = set -e ; for s in doc-base examples postinst prerm README.Debian; do \
-	if test -f debian/$(1).$$s; then cp -f debian/$(1).$$s debian/$(2).$$s; fi; done
-
-# Function that updates debhelper files for all libraries shipped.
-mk_debhelper_files = \
-	$(call add_dev_override,extra-license-file) \
-	$(call add_doc_override,extra-license-file) \
-	$(foreach l, $(boost_libs), \
-		echo "making debhelper files for $(l)..."; \
-		$(call add_lib_override,$(l),package-name-doesnt-match-sonames) \
-		$(foreach ll, $(call boost_lib,$(l)), \
-			$(foreach suf, $(call boost_suffixes,$(l)), \
-				$(call mk_files,$(l),$(ll),$(suf)) \
-			) \
-		) \
-	)
-
-TOOLSET_CONFIG = 'using gcc : : : <compileflags>"$(CPPFLAGS)" <cflags>"$(CFLAGS)" <cxxflags>"$(CXXFLAGS) -Wno-unused-local-typedefs" <linkflags>"$(LDFLAGS)" ;'
-BUILD_CONTEXT = yes
-BUILD_LONG_DOUBLE = yes
-
-DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
-
-ifeq ($(DEB_BUILD_ARCH), alpha)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), arm)
-BUILD_LONG_DOUBLE = no
-else ifeq ($(DEB_BUILD_ARCH), armel)
-BUILD_LONG_DOUBLE = no
-else ifeq ($(DEB_BUILD_ARCH), armhf)
-BUILD_LONG_DOUBLE = no
-else ifeq ($(DEB_BUILD_ARCH), arm64)
-BUILD_LONG_DOUBLE = no
-JAM_OPT += pch=off
-else ifeq ($(DEB_BUILD_ARCH), hppa)
-BUILD_LONG_DOUBLE = no
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), ia64)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), m68k)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), mips)
-BUILD_LONG_DOUBLE = no
-else ifeq ($(DEB_BUILD_ARCH), mipsel)
-BUILD_LONG_DOUBLE = no
-else ifeq ($(DEB_BUILD_ARCH), mips64)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), mips64el)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), powerpcspe)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), ppc64)
-BUILD_CONTEXT = yes
-else ifeq ($(DEB_BUILD_ARCH), ppc64el)
-BUILD_CONTEXT = yes
-else ifeq ($(DEB_BUILD_ARCH), s390)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), s390x)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), sh4)
-BUILD_LONG_DOUBLE = no
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), sparc)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), sparc64)
-BUILD_CONTEXT = no
-else ifeq ($(DEB_BUILD_ARCH), x32)
-BUILD_CONTEXT = no
-endif
-
-ifeq ($(BUILD_CONTEXT), yes)
-boost_libs += context coroutine fiber
-else
-JAM_WITHOUT += --without-context --without-coroutine --without-fiber
-endif
-
-ifeq ($(BUILD_LONG_DOUBLE), yes)
-boost_lib_math += $(boost_lib_math_long_double)
-else
-JAM_OPT += --disable-long-double
-endif
-
-exampledir = debian/libboost$(PKGVERSION)-doc/usr/share/doc/libboost$(PKGVERSION)-doc/examples
-bjam = $(CURDIR)/bjam
-bbv2dir = $(CURDIR)/tools/build
-
-# With --ignore-site-config, can probably drop Build-Conflicts on boost-build.
-JAM = $(bjam) $(JOBS) -d2 $(JAM_OPT) --layout=system --ignore-site-config --user-config=$(CURDIR)/user-config.jam debug-symbols=on
-JAM_DOC = $(bjam) $(JOBS) -d2 --ignore-site-config --user-config=$(CURDIR)/user-config-doc.jam
-
-
-
 
 $(bjam):
 	./bootstrap.sh --with-icu=/usr --prefix=$(CURDIR)/debian/tmp/usr \
