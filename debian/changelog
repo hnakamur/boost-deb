@@ -5,6 +5,7 @@ boost1.67 (1.67.0-11) UNRELEASED; urgency=medium
     packages are not uselessly built when arch-dependent packages are
     requested and viceversa (closes: #914053).
     + This should also fix some intermittent FTBFS (closes: #913709).
+  * Backport patch to fix build on kFreeBSD (closes: #913710).
 
   [ Dimitri John Ledkov ]
   * Cherrypick predef upstream patch to correctly detect BOOST_OS_LINUX
