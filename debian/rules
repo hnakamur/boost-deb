@@ -199,8 +199,8 @@ bjam = $(CURDIR)/bjam
 bbv2dir = $(CURDIR)/tools/build
 
 # With --ignore-site-config, can probably drop Build-Conflicts on boost-build.
-JAM = $(bjam) $(JOBS) -d2 $(JAM_OPT) --layout=system --ignore-site-config --user-config=$(CURDIR)/user-config.jam debug-symbols=on
-JAM_DOC = $(bjam) $(JOBS) -d2 --ignore-site-config --user-config=$(CURDIR)/user-config-doc.jam
+JAM = $(bjam) $(JOBS) -q -d2 $(JAM_OPT) --layout=system --ignore-site-config --user-config=$(CURDIR)/user-config.jam debug-symbols=on
+JAM_DOC = $(bjam) $(JOBS) -q -d2 --ignore-site-config --user-config=$(CURDIR)/user-config-doc.jam
 
 %:
 	dh $@ --with python2 --with python3

@@ -6,6 +6,8 @@ boost1.67 (1.67.0-11) UNRELEASED; urgency=medium
     requested and viceversa (closes: #914053).
     + This should also fix some intermittent FTBFS (closes: #913709).
   * Backport patch to fix build on kFreeBSD (closes: #913710).
+  * Quit quickly if compilation fails, in order to save on CPU cycles
+    and produce easier-to-read build logs.
 
   [ Dimitri John Ledkov ]
   * Cherrypick predef upstream patch to correctly detect BOOST_OS_LINUX
