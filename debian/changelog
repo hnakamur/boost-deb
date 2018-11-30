@@ -1,4 +1,4 @@
-boost1.67 (1.67.0-11) UNRELEASED; urgency=medium
+boost1.67 (1.67.0-11) unstable; urgency=medium
 
   [ Giovanni Mascellani ]
   * Split debian/rules into arch and indep rules, so that arch-independent
@@ -16,7 +16,7 @@ boost1.67 (1.67.0-11) UNRELEASED; urgency=medium
   [ Giovanni Mascellani ]
   * Replace other appearances of __linux with __linux__.
 
- -- Giovanni Mascellani <gio@debian.org>  Sat, 24 Nov 2018 22:46:29 +0100
+ -- Giovanni Mascellani <gio@debian.org>  Fri, 30 Nov 2018 18:12:49 +0100
 
 boost1.67 (1.67.0-10) unstable; urgency=medium
 
