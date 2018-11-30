@@ -13,6 +13,9 @@ boost1.67 (1.67.0-11) UNRELEASED; urgency=medium
   * Cherrypick predef upstream patch to correctly detect BOOST_OS_LINUX
     using __linux__ define (closes: #914688).
 
+  [ Giovanni Mascellani ]
+  * Replace other appearances of __linux with __linux__.
+
  -- Giovanni Mascellani <gio@debian.org>  Sat, 24 Nov 2018 22:46:29 +0100
 
 boost1.67 (1.67.0-10) unstable; urgency=medium
