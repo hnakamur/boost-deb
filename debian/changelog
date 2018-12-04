@@ -1,6 +1,7 @@
 boost1.67 (1.67.0-12) UNRELEASED; urgency=medium
 
   * Add patch to fix FTBFS of package bali-phy on ppc64* (closes: #903665).
+  * Ignore file .gitlab-ci.yml when creating the source package.
 
  -- Giovanni Mascellani <gio@debian.org>  Fri, 30 Nov 2018 19:07:29 +0100
 
