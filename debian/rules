@@ -274,6 +274,11 @@ override_dh_install-arch: override_dh_install-common
 	find debian/tmp -name .cvsignore | xargs rm -f
 	find debian -empty -type f | xargs rm -f
 
+	# Write substvars for Python packages
+	echo 'boost:Provides=' $(foreach verid,$(pyverids),libboost-python$(SOVERSION)-py$(verid),) >> debian/libboost-python$(SOVERSION).substvars
+	echo 'boost:Provides=' $(foreach verid,$(pyverids),libboost-mpi-python$(SOVERSION)-py$(verid),) >> debian/libboost-mpi-python$(SOVERSION).substvars
+	echo 'boost:Provides=' $(foreach verid,$(pyverids),libboost-numpy$(SOVERSION)-py$(verid),) >> debian/libboost-numpy$(SOVERSION).substvars
+
 	# package libboost$(PKGVERSION)-dev
 	dh_install -plibboost$(PKGVERSION)-dev \
 	   debian/tmp/usr/include/boost \
