@@ -206,6 +206,10 @@ JAM_DOC = $(bjam) $(JOBS) -q -d2 --ignore-site-config --user-config=$(CURDIR)/us
 	dh $@ --with python2 --with python3
 
 override_dh_auto_configure: user-config.jam make-debhelper
+ifeq ($(DEB_BUILD_ARCH), x32)
+	cp tools/build/src/tools/gcc.jam tools/build/src/tools/gcc.jam.bak
+	sed -i -e 's|^.*compile-link-flags.*-m32.*|#\0|g' tools/build/src/tools/gcc.jam
+endif
 
 override_dh_auto_build-common: $(bjam) b2.1 bjam.1
 	$(JAM) $(JAM_WITHOUT) --without-python
@@ -239,6 +243,9 @@ testsuite:
 override_dh_auto_clean: clean-debhelper
 	-cd tools && $(JAM) clean
 	-$(JAM) clean
+ifeq ($(DEB_BUILD_ARCH), x32)
+	-mv tools/build/src/tools/gcc.jam.bak tools/build/src/tools/gcc.jam
+endif
 	rm -rf tools/jam/src/bootstrap
 	rm -rf tools/jam/src/bin.*
 	rm -ff tools/jam/src/bjam

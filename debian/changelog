@@ -4,6 +4,7 @@ boost1.67 (1.67.0-12) UNRELEASED; urgency=medium
   * Ignore file .gitlab-ci.yml when creating the source package.
   * Expose supported Python version as virtual packages, so that reverse
     dependencies can depend on the right package.
+  * Work around broken architecture detection under x32.
 
  -- Giovanni Mascellani <gio@debian.org>  Fri, 30 Nov 2018 19:07:29 +0100
 
