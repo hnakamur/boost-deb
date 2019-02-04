@@ -1,5 +1,5 @@
 Source: boost1.67
-Homepage: http://www.boost.org/
+Homepage: https://www.boost.org/
 Section: libs
 Priority: optional
 Maintainer: Debian Boost Team <team+boost@tracker.debian.org>
