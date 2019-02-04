@@ -1,3 +1,12 @@
+boost1.67 (1.67.0-13) unstable; urgency=medium
+
+  * [c573257] Fix FTBFS in boost.compute with GCC-8. (Closes: #921247)
+  * [086d453] Trim trailing whitespace.
+  * [d21d6e3] Use secure URI in Homepage field.
+  * [957aa8b] Bump debhelper from old 9 to 10.
+
+ -- Anton Gladky <gladk@debian.org>  Mon, 04 Feb 2019 15:25:45 +0100
+
 boost1.67 (1.67.0-12) unstable; urgency=medium
 
   * Add patch to fix FTBFS of package bali-phy on ppc64* (closes: #903665).
