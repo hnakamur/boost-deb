@@ -1,3 +1,9 @@
+boost1.67 (1.67.0-14) UNRELEASED; urgency=medium
+
+  * Remove myself from uploaders.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Tue, 12 Mar 2019 03:44:54 +0000
+
 boost1.67 (1.67.0-13) unstable; urgency=medium
 
   * [c573257] Fix FTBFS in boost.compute with GCC-8. (Closes: #921247)
