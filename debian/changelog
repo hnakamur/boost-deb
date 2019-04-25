@@ -1,3 +1,9 @@
+boost1.67 (1.67.0-13ppa1~ubuntu18.04) bionic; urgency=medium
+
+  * Backport to Ubuntu 18.04 LTS
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Thu, 25 Apr 2019 23:09:00 +0900
+
 boost1.67 (1.67.0-13) unstable; urgency=medium
 
   * [c573257] Fix FTBFS in boost.compute with GCC-8. (Closes: #921247)
